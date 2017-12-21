@@ -1,21 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cartalyst\Sentinel\Roles\EloquentRole;
 
-class User extends Authenticatable
+class Role extends EloquentRole
 {
-    use Notifiable;
-
+    protected $table = 'roles';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name' , 'email', 'password',
+        'name',
+        'slug',
+        'permissions',
     ];
 
     /**

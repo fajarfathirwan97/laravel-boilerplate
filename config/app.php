@@ -177,6 +177,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // JWT
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         // HTML
         Collective\Html\HtmlServiceProvider::class,
         // Sentinel
@@ -231,10 +233,17 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
+        // JWT
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        // HTML COLLECTIVE
         'Html' => Collective\Html\HtmlFacade::class,
+        // Sentinel
         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
+        // uuid
+        'Uuid' => Webpatser\Uuid\Uuid::class,
     ],
 
 ];
