@@ -1,5 +1,5 @@
-@extends('layout.master')
-  @section('content')
+@extends('login.master')
+@section('content')
   <div>
     <a class="hiddenanchor" id="signup"></a>
     <a class="hiddenanchor" id="signin"></a>
