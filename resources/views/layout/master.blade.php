@@ -1,71 +1,71 @@
 <html>
   <head>
-      {!! Html::style('plugin/font-awesome/css/font-awesome.min.css') !!}
-      {!! Html::style('plugin/css/app.css') !!}
-      {!! Html::style('plugin/nprogress/nprogress.css') !!}
-      {!! Html::style('plugin/animate.css/animate.min.css') !!}
-      {!! Html::style('/build/css/custom.min.css') !!}
-      {!! Html::style('plugin/bootstrap/dist/css/bootstrap.min.css') !!}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {!! Html::style('plugin/bootstrap/dist/css/bootstrap.min.css') !!}
+    {!! Html::style('plugin/font-awesome/css/font-awesome.min.css') !!}
+    {!! Html::style('plugin/nprogress/nprogress.css') !!}
+    {!! Html::style('/plugin/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css') !!}
+    {!! Html::style('plugin/animate.css/animate.min.css') !!}
+    {!! Html::style('/build/css/custom.min.css') !!}
   </head>
-  <body>
-    @if (session('level'))
-      <div class='col-md-3 pull-right'>
-        <div class="alert alert-{{session('level')}}" style="position:fixed;">
-          <strong>{{ucwords(session('level'))}}!</strong> {{trans(session('message'))}}
+  
+  <body class='nav-md'>
+  <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            </div>
+            <div class="clearfix"></div>
+            <!-- menu profile quick info -->
+            @include('layout.menu-profile')
+            <!-- /menu profile quick info -->
+            <br />
+            <!-- sidebar menu -->
+            @include('layout.sidebar')
+            <!-- /sidebar menu -->
+            <!-- /menu footer buttons -->
+            @include('layout.menu-footer')            
+            <!-- /menu footer buttons -->
+          </div>
         </div>
-      </div>
-    @endif
-    <div class="right_col" role="main">
-    @include('layout.sidebar') 
-      <div class="">
-          <div class="page-title">
+        <!-- top navigation -->
+        @include('layout.top-nav')                   
+        <!-- /top navigation -->
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
               <div class="title_left">
-                  <h3>
-                      Plain Page <small>Page subtile </small>
-                  </h3>
+                <h3>Fixed Sidebar <small> Just add class <strong>menu_fixed</strong></small></h3>
+                @yield('content')
               </div>
-              <div class="title_right">
-                  <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                      <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Search for...">
-                          <span class="input-group-btn">
-                              <button class="btn btn-default" type="button">Go!</button>
-                          </span>
-                      </div>
-                  </div>
-              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
           </div>
           <div class="clearfix"></div>
-  
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="x_panel">
-                      <div class="x_title">
-                          <h2>Page title <small>Page subtile </small></h2>
-                          <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                              <li class="dropdown">
-                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                      <i class="fa fa-wrench"></i>
-                                  </a>
-                                  <ul class="dropdown-menu" role="menu">
-                                      <li><a href="#">Settings 1</a></li>
-                                      <li><a href="#">Settings 2</a></li>
-                                  </ul>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                          </ul>
-                          <div class="clearfix"></div>
-                      </div>
-                      <div class="x_content">
-                        @yield('content')
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
+        </footer>
+        <!-- /footer content -->
+      </div>
     </div>
+    <script src="{{asset('plugin/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('plugin/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('plugin/fastclick/lib/fastclick.js')}}"></script>
+    <script src="{{asset('plugin/nprogress/nprogress.js')}}"></script>
+    <script src="{{asset('plugin/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+    <script src="{{asset('build/js/custom.min.js')}}"></script>
+    {!! Html::script('js/ajax.js') !!}
+    @yield('script')
   </body>
-  {!! Html::script('js/ajax.js') !!}
-  @yield('script')
 </html>

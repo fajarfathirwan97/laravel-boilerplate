@@ -7,3 +7,5 @@
 Homestead.json
 Homestead.yaml
 .env
+.phpcomplete_extended/core_index
+.phpcomplete_extended/index_cache
