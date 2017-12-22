@@ -13,14 +13,10 @@ return [
     |
     */
 
-    'email' => 'Email',
-    'password' => 'Password',
-    'email' => 'Email',
-    'user' => [
-        'first_name' => 'First Name',
-        'last_name'  => 'Last Name',
-        'email' => 'First Name',
-        'password' => 'Password',
-        'current_password' => 'Current Password',   
+    'admin' => [
+        'dashboard' => 'Dashboard',
+        'user' => [
+            'form' => 'Form User'
+        ]
     ]
 ];

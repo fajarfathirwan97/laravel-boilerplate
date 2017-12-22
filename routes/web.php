@@ -15,11 +15,16 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::group(['middleware'=>['guest']],function(){
 			Route::get('/','AdminController@index');
 	});
-		Route::group(['middleware' => ['sentinel']],function(){
-			Route::get('/redirect','AdminController@redirect')->name('admin.redirect');
-			Route::get('/dashboard','AdminController@dashboard')->name('admin.dashboard');
-			Route::get('/redirect','AdminController@redirect')->name('admin.redirect');
+	Route::group(['middleware' => ['sentinel']],function(){
+		Route::get('/redirect','AdminController@redirect')->name('admin.redirect');
+		Route::get('/dashboard','AdminController@dashboard')->name('admin.dashboard');
+		Route::get('/redirect','AdminController@redirect')->name('admin.redirect');
+
+		Route::group(['prefix'=>'user'],function(){
+			Route::get('/{id}','UserController@form')->name('admin.user.form');		
+			Route::post('/','UserController@post')->name('admin.user.post');		
 		});
+	});
 });
 
 Route::group(['prefix'=>'auth','namespace'=>'Auth'],function(){

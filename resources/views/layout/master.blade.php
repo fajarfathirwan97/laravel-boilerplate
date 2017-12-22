@@ -42,9 +42,10 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Fixed Sidebar <small> Just add class <strong>menu_fixed</strong></small></h3>
-                @yield('content')
+                <h3>  {{translateUrl()}} </h3>
               </div>
+              <div class="clearfix"></div>
+              @yield('content')
             </div>
           </div>
         </div>
@@ -64,6 +65,7 @@
     <script src="{{asset('plugin/fastclick/lib/fastclick.js')}}"></script>
     <script src="{{asset('plugin/nprogress/nprogress.js')}}"></script>
     <script src="{{asset('plugin/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+    <script src="{{asset('plugin/validator/validator.js')}}"></script>
     <script src="{{asset('build/js/custom.min.js')}}"></script>
     {!! Html::script('js/ajax.js') !!}
     @yield('script')

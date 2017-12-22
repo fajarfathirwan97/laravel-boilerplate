@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Schema::defaultStringLength(191);
-        //
+        \Validator::extend('hashCheck', function ($attribute, $value, $parameters, $validator) {
+            $user = User::find($validator->getData()['user']['id']);
+            return \Hash::check($value,$user->password);
+        });
     }
 
     /**

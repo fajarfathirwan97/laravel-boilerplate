@@ -85,6 +85,7 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+    'hash_check'           => 'The Current Password doesn\'t match',
 
     /*
     |--------------------------------------------------------------------------
@@ -114,6 +115,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'user' => [
+            'password' => 'Password',
+            'current_password' => 'Current Password'
+        ]
+    ],
 
 ];
