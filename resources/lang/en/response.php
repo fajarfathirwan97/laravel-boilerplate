@@ -16,6 +16,7 @@ return [
     'success' => [
         'default' => 'Success Hit Data',
         'login' => 'Success Login',
+        'change_password' => 'Password is changed successfully'
     ],
     'warning' =>[
         'default' => 'Unprocessable entity',        

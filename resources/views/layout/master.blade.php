@@ -12,8 +12,13 @@
     {!! Html::style('plugin/animate.css/animate.min.css') !!}
     {!! Html::style('/build/css/custom.min.css') !!}
   </head>
-  
   <body class='nav-md'>
+  @if(session('message'))
+    <div class="col-xs-12 col-md-3 alert alert-{{session('level')}} alert-dismissable fade in" style="position: fixed; right: 0px; z-index: 99;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" style="right: 1%;">&times;</a>
+      <strong>{{ucwords(session('level'))}}!</strong> {{session('message')}}
+    </div>
+  @endif
   <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col menu_fixed">
