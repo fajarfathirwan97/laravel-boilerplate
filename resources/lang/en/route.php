@@ -17,6 +17,11 @@ return [
         'dashboard' => 'Dashboard',
         'user' => [
             'form' => 'Form User'
+        ],
+        'management' => [
+            'menu' => [
+                'index' => 'Datatable Menu'
+            ]   
         ]
     ]
 ];

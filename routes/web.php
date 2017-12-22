@@ -24,6 +24,15 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 			Route::get('/{id}','UserController@form')->name('admin.user.form');		
 			Route::post('/','UserController@post')->name('admin.user.post');		
 		});
+
+		Route::group(['prefix'=>'management'],function(){
+			Route::group(['prefix'=>'menu'],function(){
+				Route::get('/','MenuController@index')->name('admin.management.menu.index');
+				Route::get('/datatable','MenuController@datatable')->name('admin.management.menu.datatables');
+				Route::get('/datatable-column','MenuController@getDatatableColumn')->name('admin.management.menu.datatablesColumn');
+			});				
+		});
+
 	});
 });
 

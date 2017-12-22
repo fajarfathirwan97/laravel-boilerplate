@@ -15,7 +15,8 @@
         "specs/hashids-laravel": "^0.1.2",
         "thiagoalessio/tesseract_ocr": "1.0.0-RC",
         "tymon/jwt-auth": "0.5.*",
-        "webpatser/laravel-uuid": "^3.0"
+        "webpatser/laravel-uuid": "^3.0",
+        "yajra/laravel-datatables-oracle": "^8.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

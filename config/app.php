@@ -183,6 +183,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         // Sentinel
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
+        // Datatable
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*
@@ -244,6 +246,8 @@ return [
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         // uuid
         'Uuid' => Webpatser\Uuid\Uuid::class,
+        // DAtatable
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
