@@ -22,5 +22,15 @@ return [
         'email' => 'First Name',
         'password' => 'Password',
         'current_password' => 'Current Password',   
-    ]
+    ],
+    'menu' =>[
+        'name' => 'Name',
+        'href' => 'Location',
+        'icon' => 'Icon',
+        'slug' => 'slug',        
+        'is_parent' => 'Is Parent ?',
+        'parent_id' => 'Parent',
+    ],
+    'equal'=>'=',
+    'not_equal'=>'&#8800;',
 ];

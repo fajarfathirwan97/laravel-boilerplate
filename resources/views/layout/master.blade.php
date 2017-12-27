@@ -12,6 +12,11 @@
     {!! Html::style('plugin/animate.css/animate.min.css') !!}
     {!! Html::style('/build/css/custom.min.css') !!}
     <link href="{{asset('plugin/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('plugin/pnotify/dist/pnotify.css')}}" rel="stylesheet">
+    <link href="{{asset('plugin/pnotify/dist/pnotify.material.css')}}" rel="stylesheet">
+    <link href="{{asset('plugin/pnotify/dist/pnotify.brighttheme.css')}}" rel="stylesheet">
+    <link href="{{asset('plugin/pnotify/dist/pnotify.mobile.css')}}" rel="stylesheet">
+    <link href="{{asset('plugin/pnotify/dist/pnotify.buttons.css')}}" rel="stylesheet">
     <link href="{{asset('plugin/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('plugin/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('plugin/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
@@ -75,8 +80,14 @@
         </footer>
         <!-- /footer content -->
       </div>
+      @yield('specific_modal')      
     </div>
     <script src="{{asset('plugin/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('plugin/pnotify/dist/pnotify.js')}}"></script>
+    <script src="{{asset('plugin/pnotify/dist/pnotify.animate.js')}}"></script>
+    <script src="{{asset('plugin/pnotify/dist/pnotify.mobile.js')}}"></script>
+    <script src="{{asset('plugin/pnotify/dist/pnotify.desktop.js')}}"></script>
+    <script src="{{asset('plugin/pnotify/dist/pnotify.confirm.js')}}"></script>
     <script src="{{asset('plugin/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('plugin/fastclick/lib/fastclick.js')}}"></script>
     <script src="{{asset('plugin/nprogress/nprogress.js')}}"></script>

@@ -6,17 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\ResponseTraits;
 use App\Classes\HTMLGenerator;
-use App\Models\User;
-use App\Http\Requests\UserRequest;
+use App\Models\Menu;
+use App\Http\Requests\MenuRequest;
 
 class MenuController extends Controller
 {
     
     use ResponseTraits;
     
-    public function __construct(User $user)
+    public function __construct(Menu $menu)
     {
-        $this->user = $user;
+        $this->menu = $menu;
     }
 
     /**
@@ -26,7 +26,8 @@ class MenuController extends Controller
      **/
     public function index()
     {
-        return view('admin.management.menu.index');
+        $field = $this->getFieldForSearch();
+        return view('admin.management.menu.index',['field'=>$field]);
     }
 
     /**
@@ -37,10 +38,12 @@ class MenuController extends Controller
      **/
     public function datatable(Request $req)
     {
-        $user = $this->user->select(
-            \DB::RAW('CONCAT(first_name,\' \',last_name) as full_name')
+        $data = $this->menu->select(
+            'uuid',
+            'name',
+            'href'
         );
-        return datatables($user)->make(true);
+        return datatables($data)->make(true);
     }
 
     /**
@@ -52,11 +55,37 @@ class MenuController extends Controller
     public function getDatatableColumn(Request $req)
     {
         $column = [
-            ['data'=>'full_name','name'=>'full_name'],
-            ['data'=>'full_name','name'=>'full_name'],
-            ['data'=>'full_name','name'=>'full_name'],
-            ['data'=>'full_name','name'=>'full_name'],
+            ['data'=>'name','name'=>'name'],
+            ['data'=>'href','name'=>'href'],
         ];
         return $this->returnResponse(200,$column);
+    }
+     /**
+     * Datatable get Column
+     * 
+     * @param Request $req
+     * @return JSON Response
+     **/
+    public function post(MenuRequest $req)
+    {
+        $data = $req->menu;
+        $data = array_merge(['uuid'=>(string)\Uuid::generate(4)],$req->menu);
+        $this->menu->create($data);
+        return $this->returnResponse(200,$data);
+    }
+
+    /**
+     * Get Field
+     * 
+     * @param Request $req
+     * @return JSON Response
+     **/
+    public function getFieldForSearch()
+    {
+        $field = [
+            'name' => trans('form.menu.name'),
+            'href' => trans('form.menu.href')
+        ];
+        return transformToOptionHTML($field);
     }
 }

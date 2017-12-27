@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +27,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::group(['prefix'=>'management'],function(){
 			Route::group(['prefix'=>'menu'],function(){
 				Route::get('/','MenuController@index')->name('admin.management.menu.index');
+				Route::post('/','MenuController@post')->name('admin.management.menu.post');
 				Route::get('/datatable','MenuController@datatable')->name('admin.management.menu.datatables');
 				Route::get('/datatable-column','MenuController@getDatatableColumn')->name('admin.management.menu.datatablesColumn');
 			});				

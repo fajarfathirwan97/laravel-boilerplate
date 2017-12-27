@@ -119,7 +119,15 @@ return [
         'user' => [
             'password' => 'Password',
             'current_password' => 'Current Password'
-        ]
+        ],
+        'menu' => [
+            'name' => 'Name',
+            'href' => 'Location',
+            'icon' => 'Icon',
+            'slug' => 'Slug',        
+            'is_parent' => 'Is Parent ?',
+            'id_parent' => 'Parent',
+        ],
     ],
 
 ];
