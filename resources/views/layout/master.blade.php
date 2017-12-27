@@ -19,6 +19,9 @@
     <style>
       div.dataTables_wrapper div.dataTables_filter input ,div.dataTables_wrapper div.dataTables_filter label{display: none}
     </style>
+    <title>
+      @yield('title')
+    </title>
   </head>
   <body class='nav-md'>
   @if(session('message'))

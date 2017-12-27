@@ -16,6 +16,7 @@ class Role extends EloquentRole
         'name',
         'slug',
         'permissions',
+        'uuid',
     ];
 
     /**

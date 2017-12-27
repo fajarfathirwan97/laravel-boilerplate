@@ -1,4 +1,7 @@
 @extends('layout.master')
+@section('title')
+    {{translateUrl()}}
+@endsection
 @section('content')
 <table id="dTable" class="table table-striped table-responsive table-bordered">
     <thead>
