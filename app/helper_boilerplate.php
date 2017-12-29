@@ -36,12 +36,6 @@ if (!function_exists('getSidebar') )
 {
     function getSidebar(){
         $menu = new App\Models\Menu;
-        // $data = $menu->select(
-        //                         'parent_id',
-        //                         'href',
-        //                         'name',
-        //                         \DB::RAW("(JSON_ARRAY('name',name,'href',href))"))
-        // ->where('is_parent',1);
         $data = $menu->where('is_parent',1)->get();
         $data->transform(function($item,$key)use($menu){
             $item->child = $menu->where('parent_id',$item->id)->get();

@@ -38,11 +38,14 @@ class MenuController extends Controller
      **/
     public function datatable(Request $req)
     {
+        $operator = $req->search['operator'] == 'equal' ? 'like' : 'not like';
         $data = $this->menu->select(
             'uuid',
             'name',
             'href'
         );
+        if(!isNullAndEmpty($req->search['field']) && !isNullAndEmpty($req->search['keyword']))
+            $data = $data->where($req->search['field'],$operator,$req->search['keyword']);
         return datatables($data)->make(true);
     }
 

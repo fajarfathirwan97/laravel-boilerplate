@@ -6,7 +6,7 @@
 @section('content')
 <div class='row'>
     <div class='col-lg-1 col-md-1 col-xs-12 pull-right'>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary searchButton">
             <span class="fa fa-search" aria-hidden="true"></span>
         </button>
     </div>
@@ -46,50 +46,6 @@
         
     </tbody>
 </table>
-@endsection
-
-@section('script')
-<script>
-    $(document).ready(function(){
-        localStorage.clear()
-        var target = '#dTable';
-        dt = new DatatableCustomClass(`{{route('admin.management.menu.datatables')}}`,`{{route('admin.management.menu.datatablesColumn')}}`,target);
-        dt.renderDatatables()
-        var t=setInterval(function(){ 
-            if(dt.getTable()){
-                clearInterval(t) 
-                Datatable = dt.getTable();
-            }
-        },1000);
-        $('#menuForm input').on('keyup',function(e){
-            if(e.keyCode == 13){
-                submit = new ajax(`{{route('admin.management.menu.post')}}`,$('#menuForm').serializeArray(),{},'POST').execAjax();
-                submit.getResult().then(function(res){
-                    console.log('asd')
-                },function(err){
-                    PNotify.removeAll();
-                    var message = '';
-                     $.each(err.responseJSON,function(key,item){
-                        message = message.concat(item[0],' <br>')
-                    })
-                    var notice = new PNotify({
-                        title: 'Click to Close Notice',
-                        text: `${message}`,
-                        buttons: {
-                            closer: false,
-                            sticker: false
-                        }
-                    });
-                    notice.get().click(function() {
-                        notice.remove();
-                    });
-                })
-            }
-        })
-        
-    })
-
-</script>
 @endsection
 
 @section('specific_modal')
@@ -149,4 +105,49 @@
 
   </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function(){
+        var target = '#dTable';
+        dt = new DatatableCustomClass(`{{route('admin.management.menu.datatables')}}`,`{{route('admin.management.menu.datatablesColumn')}}`,target,$('[name*=search]'));
+        dt.renderDatatables()
+        // var t=setInterval(function(){ 
+        //     if(dt.getTable()){
+        //         clearInterval(t) 
+        //         Datatable = dt.getTable();
+        //     }
+        // },1000);
+        $('.searchButton').on('click',function(){
+            dt.renderDatatables();
+        });
+        $('#menuForm input').on('keyup',function(e){
+            if(e.keyCode == 13){
+                submit = new ajax(`{{route('admin.management.menu.post')}}`,$('#menuForm').serializeArray(),{},'POST').execAjax();
+                submit.getResult().then(function(res){
+                },function(err){
+                    PNotify.removeAll();
+                    var message = '';
+                     $.each(err.responseJSON,function(key,item){
+                        message = message.concat(item[0],' <br>')
+                    })
+                    var notice = new PNotify({
+                        title: 'Click to Close Notice',
+                        text: `${message}`,
+                        buttons: {
+                            closer: false,
+                            sticker: false
+                        }
+                    });
+                    notice.get().click(function() {
+                        notice.remove();
+                    });
+                })
+            }
+        })
+        
+    })
+
+</script>
 @endsection
