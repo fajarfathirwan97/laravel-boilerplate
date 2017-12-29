@@ -24,6 +24,6 @@ class User extends EloquentUser
      * @var array
      */
     protected $hidden = [
-        // 'password', 'remember_token',
+        'password', 'remember_token',
     ];
 }
