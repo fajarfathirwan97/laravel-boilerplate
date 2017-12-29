@@ -113,13 +113,10 @@
         var target = '#dTable';
         dt = new DatatableCustomClass(`{{route('admin.management.menu.datatables')}}`,`{{route('admin.management.menu.datatablesColumn')}}`,target,$('[name*=search]'));
         dt.renderDatatables()
-        // var t=setInterval(function(){ 
-        //     if(dt.getTable()){
-        //         clearInterval(t) 
-        //         Datatable = dt.getTable();
-        //     }
-        // },1000);
         $('.searchButton').on('click',function(){
+            dt.renderDatatables();
+        });
+        $('[name*=search]').on('change',function(){
             dt.renderDatatables();
         });
         $('#menuForm input').on('keyup',function(e){
