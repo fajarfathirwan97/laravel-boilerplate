@@ -40,6 +40,7 @@
         <tr>
             <th>Name</th>
             <th>Url</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -119,6 +120,46 @@
         $('[name*=search]').on('blur',function(){
             dt.renderDatatables();
         });
+        $(target).on('click','#deleteModalButton',function(){
+            $('#confrimationDeleteYes').attr('data-id',$(this).attr('data-id'));
+            $('#deleteModal').modal('show')
+        })
+        $('#confrimationDeleteYes').on('click',function(){
+            var deleteMenu = new ajax(`{{route('admin.management.menu.delete')}}`,{uuid : $(this).attr('data-id')},{},'DELETE').execAjax();            
+                deleteMenu.getResult().then(function(res){
+                PNotify.removeAll();
+                var message = res.body.content.message;
+                var notice = new PNotify({
+                    title: 'Click to Close Notice',
+                    text: `${message}`,
+                    buttons: {
+                        closer: false,
+                        sticker: false
+                    },
+                    type : 'success'
+                });
+                notice.get().click(function() {
+                    notice.remove();
+                });                
+            },function(err){
+                PNotify.removeAll();
+                var message = '';
+                    $.each(err.responseJSON,function(key,item){
+                    message = message.concat(item[0],' <br>')
+                })
+                var notice = new PNotify({
+                    title: 'Click to Close Notice',
+                    text: `${message}`,
+                    buttons: {
+                        closer: false,
+                        sticker: false
+                    }
+                });
+                notice.get().click(function() {
+                    notice.remove();
+                });
+            })
+        })
         $('#menuForm input').on('keyup',function(e){
             if(e.keyCode == 13){
                 submit = new ajax(`{{route('admin.management.menu.post')}}`,$('#menuForm').serializeArray(),{},'POST').execAjax();

@@ -80,7 +80,8 @@
         </footer>
         <!-- /footer content -->
       </div>
-      @yield('specific_modal')      
+      @yield('specific_modal')
+      @include('layout.general-modal')
     </div>
     <script src="{{asset('plugin/jquery/dist/jquery.min.js')}}"></script>
     <script src="{{asset('plugin/pnotify/dist/pnotify.js')}}"></script>

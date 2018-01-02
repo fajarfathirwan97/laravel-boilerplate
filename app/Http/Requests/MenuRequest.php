@@ -23,15 +23,19 @@ class MenuRequest extends FormRequest
      */
     public function rules()
     {
-        $rule =  [
-            'menu.slug' => 'required',
-            'menu.name' => 'required',
-            'menu.icon' => 'required',
-            'menu.href' => 'required',
-            'menu.is_parent' => 'required',
-        ];
-        if (!isNullAndEmpty($this->request->get('user')['id']))
-            $rule = array_merge($rule,['user.current_password' => 'required|hashCheck']);
+        if($this->isMethod('delete')){
+            $rule =  [ 
+                'uuid' => 'required|exists:menus,uuid'
+            ];
+        }elseif($this->isMethod('post')){
+            $rule =  [
+                'menu.slug' => 'required',
+                'menu.name' => 'required',
+                'menu.icon' => 'required',
+                'menu.href' => 'required',
+                'menu.is_parent' => 'required',
+            ];    
+        }
         return $rule;
     }
 }

@@ -33,4 +33,9 @@ return [
     ],
     'equal'=>'=',
     'not_equal'=>'&#8800;',
+    'confirmation' => [
+        'delete' => 'Are you sure you want to delete this record ?',
+        'yes' => 'Yes',
+        'no' => 'No'
+    ],
 ];

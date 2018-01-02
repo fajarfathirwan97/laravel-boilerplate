@@ -46,7 +46,9 @@ class MenuController extends Controller
         );
         if(!isNullAndEmpty($req->search['field']) && !isNullAndEmpty($req->search['keyword']))
             $data = $data->where($req->search['field'],$operator,$req->search['keyword']);
-        return datatables($data)->make(true);
+        $dataTable = datatables($data);
+        $dataTable = $this->addActionColumn($dataTable);
+        return $dataTable->make(true);
     }
 
     /**
@@ -60,6 +62,7 @@ class MenuController extends Controller
         $column = [
             ['data'=>'name','name'=>'name'],
             ['data'=>'href','name'=>'href'],
+            ['data'=>'action','name'=>'href','orderable'=>0],
         ];
         return $this->returnResponse(200,$column);
     }
@@ -78,6 +81,17 @@ class MenuController extends Controller
     }
 
     /**
+     * Delete Record Menu From DB
+     * 
+     * @param Request $req
+     * @return JSON Response
+     **/
+    public function delete(MenuRequest $req)
+    {
+        $this->menu->where(['uuid'=>$req->uuid])->delete();
+        return $this->returnResponse(200,['message'=>trans('response.success.default')]);
+    }
+    /**
      * Get Field
      * 
      * @param Request $req
@@ -90,5 +104,18 @@ class MenuController extends Controller
             'href' => trans('form.menu.href')
         ];
         return transformToOptionHTML($field);
+    }
+
+    /**
+     * Add Column Action
+     * 
+     * @param Datatable $dataTable
+     * @return Datatable $dataTable
+     **/
+    public function addActionColumn($dataTable)
+    {
+        return $dataTable->addColumn('action',function($data){
+            return " <button id='deleteModalButton' data-toggle='modal' data-id='{$data->uuid}' class='btn btn-primary'> <span class='fa fa-trash' aria-hidden='true'></span> </button>";
+        });
     }
 }
