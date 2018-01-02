@@ -116,7 +116,7 @@
         $('.searchButton').on('click',function(){
             dt.renderDatatables();
         });
-        $('[name*=search]').on('change',function(){
+        $('[name*=search]').on('blur',function(){
             dt.renderDatatables();
         });
         $('#menuForm input').on('keyup',function(e){
