@@ -134,7 +134,7 @@
                     data: function (params) {
                         var query = {
                         search: params.term,
-                        type: 'public'
+                        isParent : 1
                         }
                 
                         return query;

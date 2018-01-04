@@ -153,7 +153,7 @@ class MenuController extends Controller
         $data = $this->menu->select(
                                 \DB::RAW('id'),
                                 \DB::RAW('(SELECT name) as text')
-                                )->where('name','like',"%{$req->search}%")->get();
+                                )->where('name','like',"%{$req->search}%")->where('is_parent',$req->isParent)->get();
         return $this->returnResponseSelect2(200,$data);
     }
 }

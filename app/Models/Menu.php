@@ -20,7 +20,7 @@ class Menu extends Model
         'icon',
         'href',
         'is_parent',
-        'id_parent',
+        'parent_id',
         'created_at',
         'updated_at',
     ];
@@ -31,6 +31,6 @@ class Menu extends Model
      * @var array
      */
     protected $hidden = [
-        'id'        
+                
     ];
 }
