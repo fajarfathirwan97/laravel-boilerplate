@@ -20,7 +20,8 @@ return [
         ],
         'management' => [
             'menu' => [
-                'index' => 'Datatable Menu'
+                'index' => 'Datatable Menu',
+                'form' => 'Form Management Menu'            
             ]   
         ]
     ]

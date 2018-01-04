@@ -4,7 +4,7 @@
     <ul class="nav side-menu">
       @foreach(getSidebar() as $key => $sidebar)
         @if($sidebar->is_parent)
-        <li><a><i class="fa fa-{{$sidebar->icon}}"></i> {{$sidebar->name}} <span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa {{$sidebar->icon}}"></i> {{$sidebar->name}} <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           @foreach($sidebar->child as $key=>$child)
             <li><a href="/{{$child->href}}">{{$child->name}}</a></li>            

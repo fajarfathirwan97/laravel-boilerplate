@@ -11,6 +11,7 @@
     {!! Html::style('/plugin/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css') !!}
     {!! Html::style('plugin/animate.css/animate.min.css') !!}
     {!! Html::style('/build/css/custom.min.css') !!}
+    {!! Html::style('plugin/select2/dist/css/select2.min.css') !!}    
     <link href="{{asset('plugin/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('plugin/pnotify/dist/pnotify.css')}}" rel="stylesheet">
     <link href="{{asset('plugin/pnotify/dist/pnotify.material.css')}}" rel="stylesheet">
@@ -22,6 +23,7 @@
     <link href="{{asset('plugin/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('plugin/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
     <style>
+      .modal-open .select2-dropdown { z-index: 10060; } .modal-open .select2-close-mask { z-index: 10055; }
       div.dataTables_wrapper div.dataTables_filter input ,div.dataTables_wrapper div.dataTables_filter label{display: none}
     </style>
     <title>
@@ -90,6 +92,7 @@
     <script src="{{asset('plugin/pnotify/dist/pnotify.desktop.js')}}"></script>
     <script src="{{asset('plugin/pnotify/dist/pnotify.confirm.js')}}"></script>
     <script src="{{asset('plugin/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('plugin/select2/dist/js/select2.min.js')}}"></script>
     <script src="{{asset('plugin/fastclick/lib/fastclick.js')}}"></script>
     <script src="{{asset('plugin/nprogress/nprogress.js')}}"></script>
     <script src="{{asset('plugin/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>

@@ -31,6 +31,15 @@ class MenuController extends Controller
     }
 
     /**
+     * View Form Menu
+     *     *
+     * @return view
+     **/
+    public function form()
+    {
+        return view('admin.management.menu.form');
+    }
+    /**
      * Datatable json generator
      * 
      * @param Request $req
@@ -117,5 +126,20 @@ class MenuController extends Controller
         return $dataTable->addColumn('action',function($data){
             return " <button id='deleteModalButton' data-toggle='modal' data-id='{$data->uuid}' class='btn btn-primary'> <span class='fa fa-trash' aria-hidden='true'></span> </button>";
         });
+    }
+
+    /**
+     * Select2 Dropdown
+     *
+     * @param Request $req
+     * @return json
+     **/
+    public function select2(Request $req)
+    {
+        $data = $this->menu->select(
+                                \DB::RAW('(SELECT uuid) as id'),
+                                \DB::RAW('(SELECT name) as text')
+                                )->where('name','like',"%{$req->search}%")->get();
+        return $this->returnResponseSelect2(200,$data);
     }
 }

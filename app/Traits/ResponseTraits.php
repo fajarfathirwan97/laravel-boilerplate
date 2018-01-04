@@ -112,7 +112,15 @@ trait ResponseTraits{
         }
         return array_merge($message,['statusCode'=>$statusCode]);
     }
-
+    /**
+     * Return Response Template
+     *
+     * Return template with header code
+     *
+     * @param Integer $statusCode
+     * @param Mixed $body
+     * @return response json
+     **/
     public function returnResponse($statusCode,$body = [])
     {
         return response()->json([
@@ -121,5 +129,16 @@ trait ResponseTraits{
                 'content' => $body
             ]
             ],$statusCode);
+    }
+     /**
+     * Return Response Template for select2
+     *
+     * @param Integer $statusCode
+     * @param Mixed $body
+     * @return response json
+     **/
+    public function returnResponseSelect2($statusCode,$body = [])
+    {
+        return response()->json(['results' => $body],$statusCode);
     }
 }

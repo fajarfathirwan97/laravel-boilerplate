@@ -27,11 +27,15 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::group(['prefix'=>'management'],function(){
 			Route::group(['prefix'=>'menu'],function(){
 				Route::get('/','MenuController@index')->name('admin.management.menu.index');
+				Route::get('/form','MenuController@form')->name('admin.management.menu.form');
 				Route::post('/','MenuController@post')->name('admin.management.menu.post');
 				Route::delete('/','MenuController@delete')->name('admin.management.menu.delete');
 				Route::get('/datatable','MenuController@datatable')->name('admin.management.menu.datatables');
 				Route::get('/datatable-column','MenuController@getDatatableColumn')->name('admin.management.menu.datatablesColumn');
 			});				
+		});
+		Route::group(['prefix'=>'select2'],function(){
+			Route::post('/','MenuController@select2')->name('admin.management.menu.select2');			
 		});
 
 	});
