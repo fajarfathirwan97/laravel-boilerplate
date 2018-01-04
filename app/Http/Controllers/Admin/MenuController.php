@@ -17,6 +17,7 @@ class MenuController extends Controller
     public function __construct(Menu $menu)
     {
         $this->menu = $menu;
+        $this->routeIndex = redirect()->route('admin.management.menu.index');
     }
 
     /**
@@ -35,9 +36,18 @@ class MenuController extends Controller
      *     *
      * @return view
      **/
-    public function form()
+    public function form($uuid = null)
     {
-        return view('admin.management.menu.form');
+        if($uuid){
+            $data = $this->menu->where('uuid',$uuid)->first();
+            if(!$data)
+                return $this->routeIndex->with(['message'=>trans('response.error.internal'),'level'=>'error']);
+        }
+        else
+            $data = array_fill_keys(($this->menu->getFillable()),'');
+
+        return view('admin.management.menu.form',['menu'=>$data]);
+            
     }
     /**
      * Datatable json generator
@@ -54,7 +64,7 @@ class MenuController extends Controller
             'href'
         );
         if(!isNullAndEmpty($req->search['field']) && !isNullAndEmpty($req->search['keyword']))
-            $data = $data->where($req->search['field'],$operator,$req->search['keyword']);
+            $data = $data->where($req->search['field'],$operator,"%{$req->search['keyword']}%");
         $dataTable = datatables($data);
         $dataTable = $this->addActionColumn($dataTable);
         return $dataTable->make(true);
@@ -84,9 +94,13 @@ class MenuController extends Controller
     public function post(MenuRequest $req)
     {
         $data = $req->menu;
-        $data = array_merge(['uuid'=>(string)\Uuid::generate(4)],$req->menu);
-        $this->menu->create($data);
-        return $this->returnResponse(200,$data);
+        if(!$data['uuid']){
+            $data = array_merge($req->menu,['uuid'=>(string)\Uuid::generate(4)]);
+            $this->menu->create($data);
+        }else{
+            $this->menu->where('uuid',$data['uuid'])->update(array_except($data,['uuid']));
+        }
+        return $this->routeIndex->with(['message'=>trans('response.success.default'),'level'=>'success']);
     }
 
     /**
@@ -124,7 +138,7 @@ class MenuController extends Controller
     public function addActionColumn($dataTable)
     {
         return $dataTable->addColumn('action',function($data){
-            return " <button id='deleteModalButton' data-toggle='modal' data-id='{$data->uuid}' class='btn btn-primary'> <span class='fa fa-trash' aria-hidden='true'></span> </button>";
+            return view('layout.general-button',['data'=>$data])->render();
         });
     }
 
@@ -137,7 +151,7 @@ class MenuController extends Controller
     public function select2(Request $req)
     {
         $data = $this->menu->select(
-                                \DB::RAW('(SELECT uuid) as id'),
+                                \DB::RAW('id'),
                                 \DB::RAW('(SELECT name) as text')
                                 )->where('name','like',"%{$req->search}%")->get();
         return $this->returnResponseSelect2(200,$data);

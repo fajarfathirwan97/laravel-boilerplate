@@ -53,19 +53,19 @@
 
 @section('script')
 <script>
+    var target = '#dTable';    
     $(document).ready(function(){
-        var target = '#dTable';
         dt = new DatatableCustomClass(`{{route('admin.management.menu.datatables')}}`,`{{route('admin.management.menu.datatablesColumn')}}`,target,$('[name*=search]'));
         dt.renderDatatables()
         $('.searchButton').on('click',function(){
             dt.renderDatatables();
         });
-        $('[name*=search]').on('blur',function(){
+        $('[name*=search]').on('change',function(){
             dt.renderDatatables();
         });
-        $(target).on('click','#deleteModalButton',function(){
-            $('#confrimationDeleteYes').attr('data-id',$(this).attr('data-id'));
-            $('#deleteModal').modal('show')
+        $('#confrimationUpdateYes').on('click',function(){
+            var uuid = $(this).attr('data-id')
+            window.location.href = `{{route('admin.management.menu.form')}}/${uuid}`
         })
         $('#confrimationDeleteYes').on('click',function(){
             var deleteMenu = new ajax(`{{route('admin.management.menu.delete')}}`,{uuid : $(this).attr('data-id')},{},'DELETE').execAjax();            
@@ -102,33 +102,9 @@
                     notice.remove();
                 });
             })
+            dt.renderDatatables();            
         })
-        $('#menuForm input').on('keyup',function(e){
-            if(e.keyCode == 13){
-                submit = new ajax(`{{route('admin.management.menu.post')}}`,$('#menuForm').serializeArray(),{},'POST').execAjax();
-                submit.getResult().then(function(res){
-                },function(err){
-                    PNotify.removeAll();
-                    var message = '';
-                     $.each(err.responseJSON,function(key,item){
-                        message = message.concat(item[0],' <br>')
-                    })
-                    var notice = new PNotify({
-                        title: 'Click to Close Notice',
-                        text: `${message}`,
-                        buttons: {
-                            closer: false,
-                            sticker: false
-                        }
-                    });
-                    notice.get().click(function() {
-                        notice.remove();
-                    });
-                })
-            }
-        })
-        
-    })
+})
 
 </script>
 @endsection

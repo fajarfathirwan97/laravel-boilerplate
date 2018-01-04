@@ -20,6 +20,7 @@
             <br />
             <form action="{{route('admin.management.menu.post')}}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                 {{csrf_field()}}
+                <input type="hidden" name="menu[uuid]" value="{{@$menu[uuid]}}">
                 <div class="form-group {{$errors->has('menu.is_parent') ? 'has-error' : ''}}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">{{trans('form.menu.is_parent')}}*</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
@@ -32,34 +33,44 @@
                 @if($errors->has('menu.is_parent'))
                     <span class="help-block">{{$errors->first('menu.is_parent')}}</span>
                 @endif
-                <div id='parentIdBlock' class='form-group'>
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.menu.parent_id')}}</label>
-                <div class="col-md-10 col-sm-10 col-xs-12">
-                    <select name="menu[parent_id]" id="parent_id" class="form-control col-md-7 col-xs-12">
-                    </select>
+
+                <div class="form-group {{$errors->has('menu.parent_id') ? 'has-error' : ''}}" id='parentIdBlock'>
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.menu.parent_id')}}</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <select name="menu[parent_id]" id="parent_id" class="form-control col-md-7 col-xs-12">
+                        </select>
+                    </div>
+                    @if($errors->has('menu.parent_id'))
+                        <span class="help-block">{{$errors->first('menu.parent_id')}}</span>
+                    @endif
                 </div>
-                @if($errors->has('menu.parent_id'))
-                    <span class="help-block">{{$errors->first('menu.parent_id')}}</span>
-                @endif
-                </div>
-                <div class='form-group'>
+
+                <div class="form-group {{$errors->has('menu.name') ? 'has-error' : ''}}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.menu.name')}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
                         <input type="text" value="{{@$menu['name']}}" name="menu[name]" id="name" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
-                <div class='form-group'>          
+                @if($errors->has('menu.name'))
+                        <span class="help-block">{{$errors->first('menu.name')}}</span>
+                @endif
+
+                <div class="form-group {{$errors->has('menu.href') ? 'has-error' : ''}}">          
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.menu.href')}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
                         <input type="text" value="{{@$menu['href']}}" name="menu[href]" id="href" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
-                <div class='form-group'>            
+                @if($errors->has('menu.href'))
+                        <span class="help-block">{{$errors->first('menu.href')}}</span>
+                @endif
+
+                <div class="form-group {{$errors->has('menu.icon') ? 'has-error' : ''}}">            
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.menu.icon')}}</label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
                         <select name="menu[icon]" id="icon" class="form-control col-md-7 col-xs-12">
                             @foreach(getListIcon() as $icon)
-                            <option value="{{$icon}}">{{$icon}}</option>
+                            <option value="{{$icon}}" "{{$icon == $menu['icon'] ? 'selected' : ''}}" >{{$icon}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -69,12 +80,18 @@
                           </h4>
                     </div>
                 </div>
-                <div class='form-group'>            
+                @if($errors->has('menu.icon'))
+                        <span class="help-block">{{$errors->first('menu.icon')}}</span>
+                @endif
+                <div class="form-group {{$errors->has('menu.slug') ? 'has-error' : ''}}">            
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.menu.slug')}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
                         <input type="text" value="{{@$menu['slug']}}" name="menu[slug]" id="slug" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
+                @if($errors->has('menu.slug'))
+                        <span class="help-block">{{$errors->first('menu.slug')}}</span>
+                @endif
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -101,34 +118,37 @@
                 $('#parentIdBlock').hide()
             else
                 $('#parentIdBlock').show()
-            
+            loadSelect2()
         }
         formCheck();
         $('#is_parent').on('click',formCheck);
         $('#icon').on('select2:select',function(){
             $('#previewIcon').removeClass()            
             $('#previewIcon').addClass('fa '+$(this).val())
-        })
-        $('#parent_id').select2({
-            ajax: {
-                type:"POST",
-                delay : 1000,
-                data: function (params) {
-                    var query = {
-                      search: params.term,
-                      type: 'public'
+        });
+        function loadSelect2(){
+            $('#parent_id').select2({
+                ajax: {
+                    type:"POST",
+                    delay : 1000,
+                    data: function (params) {
+                        var query = {
+                        search: params.term,
+                        type: 'public'
+                        }
+                
+                        return query;
+                    },
+                    url: '{{route("admin.management.menu.select2")}}',
+                    processResults: function (data) {
+                        return {
+                            results: data.results
+                        };
                     }
-              
-                    return query;
-                },
-                url: '{{route("admin.management.menu.select2")}}',
-                processResults: function (data) {
-                    return {
-                        results: data.results
-                    };
                 }
-            }
-        });        
+            });        
+
+        }
     })
 </script>
 @endsection

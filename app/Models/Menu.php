@@ -14,7 +14,6 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
         'uuid',
         'slug',
         'name',
@@ -22,6 +21,8 @@ class Menu extends Model
         'href',
         'is_parent',
         'id_parent',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -30,6 +31,6 @@ class Menu extends Model
      * @var array
      */
     protected $hidden = [
-        
+        'id'        
     ];
 }

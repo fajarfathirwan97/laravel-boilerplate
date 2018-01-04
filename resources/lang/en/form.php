@@ -34,7 +34,10 @@ return [
     'equal'=>'=',
     'not_equal'=>'&#8800;',
     'confirmation' => [
+        'title_delete' => 'Delete Confirmation',
+        'title_update' => 'Update Confirmation',
         'delete' => 'Are you sure you want to delete this record ?',
+        'update' => 'Are you sure you want to update this record ?',
         'yes' => 'Yes',
         'no' => 'No'
     ],

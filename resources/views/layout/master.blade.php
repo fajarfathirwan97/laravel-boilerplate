@@ -116,5 +116,15 @@
     {!! Html::script('js/ajax.js') !!}
     {!! Html::script('js/datatables.js') !!}
     @yield('script')
+    <script>
+      $(target).on('click','#deleteModalButton',function(){
+            $('#confrimationDeleteYes').attr('data-id',$(this).attr('data-id'));
+            $('#deleteModal').modal('show')
+      })
+      $(target).on('click','#updateModalButton',function(){
+            $('#confrimationUpdateYes').attr('data-id',$(this).attr('data-id'));
+            $('#updateModal').modal('show')
+      })
+    </script>
   </body>
 </html>

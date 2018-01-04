@@ -27,7 +27,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::group(['prefix'=>'management'],function(){
 			Route::group(['prefix'=>'menu'],function(){
 				Route::get('/','MenuController@index')->name('admin.management.menu.index');
-				Route::get('/form','MenuController@form')->name('admin.management.menu.form');
+				Route::get('/form/{uuid?}','MenuController@form')->name('admin.management.menu.form');
 				Route::post('/','MenuController@post')->name('admin.management.menu.post');
 				Route::delete('/','MenuController@delete')->name('admin.management.menu.delete');
 				Route::get('/datatable','MenuController@datatable')->name('admin.management.menu.datatables');
