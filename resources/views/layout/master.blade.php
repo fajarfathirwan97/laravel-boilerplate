@@ -65,7 +65,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>  {{translateUrl()}} </h3>
+                <!-- <h3>  {{translateUrl()}} </h3> -->
               </div>
               <div class="clearfix"></div>
               @yield('content')
@@ -115,7 +115,9 @@
     <script src="{{asset('plugin/pdfmake/build/vfs_fonts.js')}}"></script>
     {!! Html::script('js/ajax.js') !!}
     {!! Html::script('js/datatables.js') !!}
-    <script>var target</script>
+    <script>
+      var target
+    </script>
     @yield('script')
     <script>
       if(target !== undefined){

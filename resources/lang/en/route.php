@@ -22,7 +22,11 @@ return [
             'menu' => [
                 'index' => 'Datatable Menu',
                 'form' => 'Form Management Menu'            
-            ]   
+            ],
+            'json' => [
+                'index' => 'Json Add',
+            ]
+
         ]
     ]
 ];

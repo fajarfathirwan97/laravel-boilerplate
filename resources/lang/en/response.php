@@ -8,6 +8,7 @@ return [
     ],
     'warning' =>[
         'default' => 'Unprocessable entity',        
+        'invalid_json' => 'Json Is Invalid',        
         'login' => 'Email Or Password Doesn\'t match',
     ],
     'error' => [

@@ -32,7 +32,12 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 				Route::delete('/','MenuController@delete')->name('admin.management.menu.delete');
 				Route::get('/datatable','MenuController@datatable')->name('admin.management.menu.datatables');
 				Route::get('/datatable-column','MenuController@getDatatableColumn')->name('admin.management.menu.datatablesColumn');
-			});				
+			});
+			Route::group(['prefix'=>'json'],function(){
+				Route::get('/','JsonDummyController@index')->name('admin.management.json.index');
+				Route::get('/{uuid?}','JsonDummyController@getDummy')->name('admin.management.json.index');
+				Route::post('/','JsonDummyController@post')->name('admin.management.json.post');
+			});
 		});
 		Route::group(['prefix'=>'select2'],function(){
 			Route::post('/','MenuController@select2')->name('admin.management.menu.select2');			

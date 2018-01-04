@@ -52,3 +52,10 @@ if (!function_exists('getListIcon') )
         ];
     }
 }
+
+if (!function_exists('generateUuid') )
+{
+    function generateUuid(){
+        return (string)\Uuid::generate(4);
+    }
+}

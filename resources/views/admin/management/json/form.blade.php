@@ -104,6 +104,9 @@
         </div>
     </div>
 </div>
+<form id='menuForm' method="POST" action="#" class='form-horizontal form-label-left'>
+    
+</form>
 @endsection
 
 @section('script')
