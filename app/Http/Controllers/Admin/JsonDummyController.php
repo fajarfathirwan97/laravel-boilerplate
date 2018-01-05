@@ -38,7 +38,7 @@ class JsonDummyController extends Controller
             $fileName = generateUuid();
             $fileManager = new FileManager($fileName,$this->dirStorage);
             $fileManager->save($req->json);
-            return $this->returnResponse(201,['message'=>trans('response.success.default'),'data'=>['fileName'=>$fileManager->getFileName()]]);
+            return $this->returnResponse(201,['message'=>trans('response.success.dummy_json'),'data'=>['route'=>route('admin.management.json.get_dummy',['uuid'=>$fileManager->getFileName()])]]);
         }else{
             return $this->returnResponse(422,['message'=>trans('response.warning.invalid_json')]);
         }

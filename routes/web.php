@@ -35,7 +35,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 			});
 			Route::group(['prefix'=>'json'],function(){
 				Route::get('/','JsonDummyController@index')->name('admin.management.json.index');
-				Route::get('/{uuid?}','JsonDummyController@getDummy')->name('admin.management.json.index');
+				Route::get('/{uuid?}','JsonDummyController@getDummy')->name('admin.management.json.get_dummy');
 				Route::post('/','JsonDummyController@post')->name('admin.management.json.post');
 			});
 		});

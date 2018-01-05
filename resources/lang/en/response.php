@@ -3,6 +3,7 @@
 return [
     'success' => [
         'default' => 'Success Hit Data',
+        'dummy_json' => 'The link has been generated',
         'login' => 'Success Login',
         'change_password' => 'Password is changed successfully'
     ],
