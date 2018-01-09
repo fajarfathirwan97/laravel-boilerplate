@@ -1,0 +1,88 @@
+@extends('layout.master')
+
+@section('title')
+    {{translateUrl()}}
+@endsection
+
+@section('content')
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+            <h2>{{translateUrl()}}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+            </ul>
+            <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+            <br />
+            <form action="{{route('admin.management.role.post')}}" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+                {{csrf_field()}}
+                <input type="hidden" name="role[uuid]" value="{{@$role[uuid]}}">
+
+                <!-- block 1 form -->
+                <div class="form-group {{$errors->has('role.name') ? 'has-error' : ''}}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.role.name')}}</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input type="text" value="{{@$role['name']}}" name="role[name]" id="name" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                @if($errors->has('role.name'))
+                        <span class="help-block">{{$errors->first('role.name')}}</span>
+                @endif
+                <!-- /block 1 form -->
+
+                <!-- block 1 form -->
+                <div class="form-group {{$errors->has('role.permission') ? 'has-error' : ''}}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.role.permission')}}</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <select name="role[permissions][]" id="permission" class="form-control col-md-7 col-xs-12" multiple></select>
+                    </div>
+                </div>
+                @if($errors->has('role.name'))
+                        <span class="help-block">{{$errors->first('role.name')}}</span>
+                @endif
+                <!-- /block 1 form -->
+
+                
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <button class="btn btn-primary" type="button">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function(){
+        $('#permission').select2({
+            ajax: {
+                type:"POST",
+                delay : 1000,
+                data: function (params) {
+                    var query = {
+                    search: params.term,
+                    isParent : '*'
+                    }
+                    return query;
+                },
+                url: '{{route("admin.management.menu.select2")}}',
+                processResults: function (data) {
+                    return {
+                        results: data.results
+                    };
+                }
+            }
+        })
+    })
+</script>
+@endsection

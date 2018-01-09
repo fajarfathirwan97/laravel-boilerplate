@@ -34,13 +34,19 @@ class FileManager
         return $this;
     }
 
+    public function getJson()
+    {
+        $fopen = fopen("{$this->rootStorage}/{$this->fullPath}",'r');
+        $fsize = filesize("{$this->rootStorage}/{$this->fullPath}");
+        return fread($fopen,$fsize);
+    }
+
+
     public function getFile()
     {
         switch ($this->type) {
             case 'json':
-                $fopen = fopen("{$this->rootStorage}/{$this->fullPath}",'r');
-                $fsize = filesize("{$this->rootStorage}/{$this->fullPath}");
-                $result = fread($fopen,$fsize);    
+                $result = $this->getJson();
                 break;
             default:
                 # code...

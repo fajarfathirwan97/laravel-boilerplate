@@ -24,6 +24,7 @@
     <link href="{{asset('plugin/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
     <style>
       .modal-open .select2-dropdown { z-index: 10060; } .modal-open .select2-close-mask { z-index: 10055; }
+      .form-horizontal .control-label{text-align:left;}
       div.dataTables_wrapper div.dataTables_filter input ,div.dataTables_wrapper div.dataTables_filter label{display: none}
     </style>
     <title>

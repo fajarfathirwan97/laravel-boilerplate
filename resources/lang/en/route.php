@@ -23,6 +23,10 @@ return [
                 'index' => 'Datatable Menu',
                 'form' => 'Form Management Menu'            
             ],
+            'role' => [
+                'index' => 'Datatable Roles',
+                'form' => 'Form Management Role'            
+            ],
             'json' => [
                 'index' => 'Json Add',
             ]

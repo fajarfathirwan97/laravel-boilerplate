@@ -24,7 +24,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 			Route::post('/','UserController@post')->name('admin.user.post');		
 		});
 
-		Route::group(['prefix'=>'management'],function(){
+		Route::group(['prefix'=>'management','middleware'=>['access']],function(){
 			Route::group(['prefix'=>'menu'],function(){
 				Route::get('/','MenuController@index')->name('admin.management.menu.index');
 				Route::get('/form/{uuid?}','MenuController@form')->name('admin.management.menu.form');
@@ -32,6 +32,14 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 				Route::delete('/','MenuController@delete')->name('admin.management.menu.delete');
 				Route::get('/datatable','MenuController@datatable')->name('admin.management.menu.datatables');
 				Route::get('/datatable-column','MenuController@getDatatableColumn')->name('admin.management.menu.datatablesColumn');
+			});
+			Route::group(['prefix'=>'role'],function(){
+				Route::get('/','RoleController@index')->name('admin.management.role.index');
+				Route::get('/form/{uuid?}','RoleController@form')->name('admin.management.role.form');
+				Route::post('/','RoleController@post')->name('admin.management.role.post');
+				Route::delete('/','RoleController@delete')->name('admin.management.role.delete');
+				Route::get('/datatable','RoleController@datatable')->name('admin.management.role.datatables');
+				Route::get('/datatable-column','RoleController@getDatatableColumn')->name('admin.management.role.datatablesColumn');
 			});
 			Route::group(['prefix'=>'json'],function(){
 				Route::get('/','JsonDummyController@index')->name('admin.management.json.index');

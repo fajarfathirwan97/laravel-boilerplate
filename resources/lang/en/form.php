@@ -31,6 +31,10 @@ return [
         'is_parent' => 'Is Parent ?',
         'parent_id' => 'Parent',
     ],
+    'role' =>[
+        'name' => 'Name',
+        'permissions' => 'Permission',
+    ],
     'equal'=>'=',
     'not_equal'=>'&#8800;',
     'confirmation' => [
