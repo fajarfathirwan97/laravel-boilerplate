@@ -36,9 +36,10 @@
 
                 <!-- block 1 form -->
                 <div class="form-group {{$errors->has('role.permission') ? 'has-error' : ''}}">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.role.permission')}}</label>
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.role.permissions')}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                        <select name="role[permissions][]" id="permission" class="form-control col-md-7 col-xs-12" multiple></select>
+                        <select name="role[permissions][]" id="permission" data-value="{{@$role[permission]}}" class="form-control col-md-7 col-xs-12" multiple>
+                        </select>
                     </div>
                 </div>
                 @if($errors->has('role.name'))
@@ -82,6 +83,10 @@
                     };
                 }
             }
+        })
+        var permission = $('#permission').data('value'); 
+        $(permission).each(function(key,item){
+            $('#permission').append($('<option>', {value: item.value, text: item.text,selected: true}))
         })
     })
 </script>

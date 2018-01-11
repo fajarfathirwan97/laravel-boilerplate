@@ -19,9 +19,9 @@ class Access
     public function handle($request, Closure $next, $guard = null)
     {
         $menu = new Menu;
-        $permission = @\Sentinel::check()->roles()->first()->permissions;
+        $permission = @\Sentinel::check()->roles()->first()->getAttributes()['permissions'];
         $menuPermission = $menu->where('href','like','%'.$request->segment(3).'%')->first();
-        if(in_array(@$menuPermission->id,$permission))
+        if($permission == '*' || in_array(@$menuPermission->id,$permission ? json_decode($permission): ''))
             return $next($request);
         abort(404);
     }

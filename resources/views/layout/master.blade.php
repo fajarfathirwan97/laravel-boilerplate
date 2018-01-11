@@ -94,6 +94,7 @@
     <script src="{{asset('plugin/pnotify/dist/pnotify.confirm.js')}}"></script>
     <script src="{{asset('plugin/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('plugin/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{asset('plugin/select2/dist/js/select2.full.min.js')}}"></script>
     <script src="{{asset('plugin/fastclick/lib/fastclick.js')}}"></script>
     <script src="{{asset('plugin/nprogress/nprogress.js')}}"></script>
     <script src="{{asset('plugin/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>

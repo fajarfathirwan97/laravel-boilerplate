@@ -41,6 +41,12 @@ class RoleController extends Controller
     {
         if($uuid){
             $data = $this->role->where('uuid',$uuid)->first();
+            $data->permission = Menu::whereIn('id',$data->permissions)->pluck('name','id');
+            $permission = [];
+            foreach ($data->permission as $id => $value) {
+                array_push($permission,['value'=>$id,'text'=>$value]);
+            }
+            $data->permission = json_encode($permission);
             if(!$data)
                 return $this->routeIndex->with(['message'=>trans('response.error.internal'),'level'=>'error']);
         }
@@ -91,7 +97,7 @@ class RoleController extends Controller
     {
         $data = $req->role;
         if(!$data['uuid']){
-            $data = array_merge($req->role,['uuid'=>generateUuid(),'permissions'=>json_encode($data['permissions'])]);
+            $data = array_merge($req->role,['uuid'=>generateUuid(),'permissions'=>$data['permissions'],'slug'=>strtolower(str_replace(' ','_',$data['name']))]);
             $this->role->create($data);
         }else{
             $data = array_merge($req->role,['permissions'=>json_encode($data['permissions'])]);
