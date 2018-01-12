@@ -36,7 +36,9 @@ if (!function_exists('getSidebar') )
 {
     function getSidebar(){
         $menu = new App\Models\Menu;
-        $data = $menu->where('is_parent',1)->get();
+        // $menuUser = \Sentinel::check()->roles()->first()->getAttributes()['permissions'];
+        $data = $menu->where('is_parent',1);
+        $data = $data->get();
         $data->transform(function($item,$key)use($menu){
             $item->child = $menu->where('parent_id',$item->id)->get();
             return $item;

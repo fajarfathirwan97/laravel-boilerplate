@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
         $role->truncate();
         \DB::beginTransaction();
         try{
-            $role = $role->create(['name'=>'admin','slug'=>'admin','uuid'=>\Uuid::generate(4)]);
+            $role = $role->create(['name'=>'admin','permissions'=>'*','slug'=>'admin','uuid'=>\Uuid::generate(4)]);
             $user = \Sentinel::registerAndActivate(['username'=>'superadmin','first_name'=>'admin','last_name'=>'admin','email'=>'admin@boilerplate.com','password'=>'admin','uuid'=>\Uuid::generate(4)]);
             $role->users()->attach($user->id);
         \DB::commit();

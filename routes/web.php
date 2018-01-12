@@ -41,6 +41,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 				Route::get('/datatable','RoleController@datatable')->name('admin.management.role.datatables');
 				Route::get('/datatable-column','RoleController@getDatatableColumn')->name('admin.management.role.datatablesColumn');
 			});
+			Route::group(['prefix'=>'migration'],function(){
+				Route::get('/','MigrationController@index')->name('admin.management.migration.index');				
+			});
 			Route::group(['prefix'=>'json'],function(){
 				Route::get('/','JsonDummyController@index')->name('admin.management.json.index');
 				Route::get('/{uuid?}','JsonDummyController@getDummy')->name('admin.management.json.get_dummy');
@@ -58,7 +61,3 @@ Route::group(['prefix'=>'auth','namespace'=>'Auth'],function(){
 	Route::post('/','AuthController@auth')->name('auth');
 });
 
-
-Route::group(['prefix'=>'test','namespace'=>'Test'],function(){
-	Route::post('/image','ImageController@post')->name('test.image.post');
-});
