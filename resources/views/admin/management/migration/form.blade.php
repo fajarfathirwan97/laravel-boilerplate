@@ -32,9 +32,7 @@
                 </div>
                 <!-- /block 1 form -->
 
-                <div class='form-generate'>
-
-                </div>
+                <div class='form-generate'></div>
 
                 <div class="ln_solid"></div>
                 <div class="form-group">
@@ -52,14 +50,18 @@
 
 @section('script')
 <script>
+    
     $(document).ready(function(){
-
         $('#addColumn').on('click',function(){
             var formAjax = new ajax("{{route('admin.management.migration.getGenerateForm')}}",{length : $('[name*="migration[column]"').length/2 },{},'GET').execAjax().getResult()
             formAjax.then(function(res){
                 console.log()
                 $('.form-generate').append(res.body.content);
                 $('.dataType').select2()
+                $('.deleteColumn').on('click',function(){
+                    console.log('asd');
+                    $(this).parents().eq(1).remove();
+                })
             })
         })
     })
