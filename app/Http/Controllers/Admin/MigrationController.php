@@ -13,7 +13,6 @@ class MigrationController extends Controller
     {
         $this->routeIndex = redirect()->route('admin.management.json.index');
         $this->dirStorage = 'json';
-        $this->htmlRender = new HTMLRenderer();
     }
 
     /**
