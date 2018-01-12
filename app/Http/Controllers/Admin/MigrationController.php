@@ -31,4 +31,37 @@ class MigrationController extends Controller
         }
         return view('admin.management.migration.index',['data'=>json_encode($migrateStatusResult)]);
     }
+
+    /**
+     * Form View Migration
+     * 
+     * @return view
+     **/
+    public function form()
+    {
+        return view('admin.management.migration.form');
+    }
+
+    /**
+     * Get Generate Form View For Migration Purpose
+     *
+     * @return HTML View
+     **/
+    public function getGenerateForm(Request $req)
+    {
+        $view = view('admin.management.migration.form-generate',['length'=>$req->length])->render();
+        return $this->returnResponse(200,$view);
+    }
+
+    /**
+     * Get Generate Form View For Migration Purpose
+     *
+     * @return HTML View
+     **/
+    public function post(Request $req)
+    {
+        dd($req->all());
+        $view = view('admin.management.migration.form-generate')->render();
+        return $this->returnResponse(200,$view);
+    }
 }

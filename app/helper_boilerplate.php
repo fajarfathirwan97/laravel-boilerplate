@@ -54,7 +54,12 @@ if (!function_exists('getListIcon') )
         ];
     }
 }
-
+if (!function_exists('getListDataType') )
+{
+    function getListDataType(){
+        return ["bigIncrements", "bigInteger", "binary", "boolean", "char", "date", "dateTime", "dateTimeTz", "decimal", "double", "enum", "float", "geometry", "geometryCollection", "increments", "integer", "ipAddress", "json", "jsonb", "lineString", "longText", "macAddress", "mediumIncrements", "mediumInteger", "mediumText", "morphs", "multiLineString", "multiPoint", "multiPolygon", "nullableMorphs", "nullableTimestamps", "point", "polygon", "rememberToken", "smallIncrements", "smallInteger", "softDeletes", "softDeletesTz", "string", "text", "time", "timeTz", "timestamp", "timestampTz", "timestamps", "timestampsTz", "tinyIncrements", "tinyInteger", "unsignedBigInteger", "unsignedDecimal", "unsignedInteger", "unsignedMediumInteger", "unsignedSmallInteger", "unsignedTinyInteger", "uuid", "year",];
+    }
+}
 if (!function_exists('generateUuid') )
 {
     function generateUuid(){

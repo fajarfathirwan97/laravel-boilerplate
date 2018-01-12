@@ -43,6 +43,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 			});
 			Route::group(['prefix'=>'migration'],function(){
 				Route::get('/','MigrationController@index')->name('admin.management.migration.index');				
+				Route::get('/form','MigrationController@form')->name('admin.management.migration.form');				
+				Route::post('/','MigrationController@post')->name('admin.management.migration.post');
+				Route::get('/generate-form','MigrationController@getGenerateForm')->name('admin.management.migration.getGenerateForm');
 			});
 			Route::group(['prefix'=>'json'],function(){
 				Route::get('/','JsonDummyController@index')->name('admin.management.json.index');
