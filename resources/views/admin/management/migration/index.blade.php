@@ -15,7 +15,7 @@
 <table id="dTable" data-value='{{$data}}' class="table table-striped table-responsive table-bordered">
 <div class='row'>
     <div class='col-lg-1 col-md-1 col-xs-12 pull-right'>
-        <a href="{{route('admin.management.menu.form')}}">
+        <a href="{{route('admin.management.migration.form')}}">
             <button id='addModalButton' class="btn btn-primary">
                 <span class="fa fa-plus-square" aria-hidden="true"></span>
             </button>

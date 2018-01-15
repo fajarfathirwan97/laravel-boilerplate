@@ -60,8 +60,9 @@ class MigrationController extends Controller
      **/
     public function post(Request $req)
     {
-        dd($req->all());
-        $view = view('admin.management.migration.form-generate')->render();
-        return $this->returnResponse(200,$view);
+        $tableName = strtolower($req->migration['name']);
+        $command = 'php '.base_path('artisan make:migration') ." create_table_{$tableName}";
+        $resultExec = shell_exec($command);
+        dd($resultExec,$command);
     }
 }

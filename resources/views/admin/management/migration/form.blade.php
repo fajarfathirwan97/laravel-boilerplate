@@ -59,7 +59,6 @@
                 $('.form-generate').append(res.body.content);
                 $('.dataType').select2()
                 $('.deleteColumn').on('click',function(){
-                    console.log('asd');
                     $(this).parents().eq(1).remove();
                 })
             })
