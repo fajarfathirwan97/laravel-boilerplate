@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Models\User;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,13 @@ class AppServiceProvider extends ServiceProvider
         \Schema::defaultStringLength(191);
         \Validator::extend('hashCheck', function ($attribute, $value, $parameters, $validator) {
             $user = User::find($validator->getData()['user']['id']);
-            return \Hash::check($value,$user->password);
+            return \Hash::check($value, $user->password);
+        });
+        view()->composer('*', function ($view) {
+            $sidebar = collect([
+                (object) ['is_parent' => 1, 'icon' => 'fa-sitemap', 'name' => 'Organization', 'child' => []],
+            ]);
+            $view->with('sideBar', $sidebar);
         });
     }
 
