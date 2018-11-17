@@ -12,7 +12,7 @@
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::group(['middleware'=>['guest']],function(){
-			Route::get('/','AdminController@index');
+			Route::get('/','AdminController@index')->name('admin.index');
 			Route::get('/logout','AdminController@logout')->name('admin.logout');
 	});
 	Route::group(['middleware' => ['sentinel']],function(){
@@ -26,15 +26,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		});
 
 		Route::group(['prefix'=>'management'],function(){
-
-			Route::group(['prefix'=>'menu'],function(){
-				Route::get('/','MenuController@index')->name('admin.management.menu.index');
-				Route::get('/form/{uuid?}','MenuController@form')->name('admin.management.menu.form');
-				Route::post('/','MenuController@post')->name('admin.management.menu.post');
-				Route::delete('/','MenuController@delete')->name('admin.management.menu.delete');
-				Route::get('/datatable','MenuController@datatable')->name('admin.management.menu.datatables');
-				Route::get('/datatable-column','MenuController@getDatatableColumn')->name('admin.management.menu.datatablesColumn');
-			});
 
 			//organizations
 
@@ -55,26 +46,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 				Route::get('/datatable','RoleController@datatable')->name('admin.management.role.datatables');
 				Route::get('/datatable-column','RoleController@getDatatableColumn')->name('admin.management.role.datatablesColumn');
 			});
-			Route::group(['prefix'=>'migration'],function(){
-				Route::get('/','MigrationController@index')->name('admin.management.migration.index');				
-				Route::get('/form','MigrationController@form')->name('admin.management.migration.form');				
-				Route::post('/','MigrationController@post')->name('admin.management.migration.post');
-				Route::get('/generate-form','MigrationController@getGenerateForm')->name('admin.management.migration.getGenerateForm');
-			});
-			Route::group(['prefix'=>'json'],function(){
-				Route::get('/','JsonDummyController@index')->name('admin.management.json.index');
-				Route::get('/{uuid?}','JsonDummyController@getDummy')->name('admin.management.json.get_dummy');
-				Route::post('/','JsonDummyController@post')->name('admin.management.json.post');
-			});
 		});
 		Route::group(['prefix'=>'select2'],function(){
 			Route::post('/','MenuController@select2')->name('admin.management.menu.select2');			
 		});
 
 	});
-});
-
-Route::group(['prefix'=>'auth','namespace'=>'Auth'],function(){
-	Route::post('/','AuthController@auth')->name('auth');
 });
 
