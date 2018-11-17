@@ -7,6 +7,7 @@ use App\Http\Requests\OrganizationRequest;
 use App\Models\Organization;
 use App\Traits\ResponseTraits;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class OrganizationController extends Controller
 {
@@ -134,6 +135,7 @@ class OrganizationController extends Controller
         $this->model->where(['uuid' => $req->uuid])->delete();
         return $this->returnResponse(200, ['message' => trans('response.success.default')]);
     }
+
     /**
      * Get Field
      *
@@ -158,7 +160,7 @@ class OrganizationController extends Controller
     public function addActionColumn($dataTable)
     {
         return $dataTable->addColumn('action', function ($data) {
-            return view('layout.general-button', ['data' => $data])->render();
+            return view('layout.general-button', ['data' => $data, 'url' => route("{$this->viewPath}.detail", $data->uuid)])->render();
         });
     }
 
@@ -184,9 +186,23 @@ class OrganizationController extends Controller
     public function select2(Request $req)
     {
         $data = $this->model->select(
-                                \DB::RAW('id'),
-                                \DB::RAW('(SELECT name) as text')
-                                )->where('name','like',"%{$req->search}%")->take(50)->get();
-        return $this->returnResponseSelect2(200,$data);
+            \DB::RAW('id'),
+            \DB::RAW('(SELECT name) as text')
+        )->where('name', 'like', "%{$req->search}%")->take(50)->get();
+        return $this->returnResponseSelect2(200, $data);
+    }
+
+    /**
+     * Detail Organization
+     *
+     * @param Request $req
+     * @return json
+     **/
+    public function detail($uuid)
+    {
+        $data = $this->model->whereUuid($uuid)->first();
+        $user = new User();
+        $userController = new UserController($user);
+        return view("$this->viewPath.detail", ['data' => $data,'field'=>$userController->getFieldForSearch()]);
     }
 }

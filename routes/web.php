@@ -34,6 +34,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 				Route::get('/form/{uuid?}','OrganizationController@form')->name('admin.management.organization.form');
 				Route::post('/','OrganizationController@post')->name('admin.management.organization.post');
 				Route::delete('/','OrganizationController@delete')->name('admin.management.organization.delete');
+				Route::get('/detail/{uuid}','OrganizationController@detail')->name('admin.management.organization.detail');
 				Route::get('/datatable','OrganizationController@datatable')->name('admin.management.organization.datatables');
 				Route::get('/datatable-column','OrganizationController@getDatatableColumn')->name('admin.management.organization.datatablesColumn');
 			});
@@ -44,6 +45,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 				Route::post('/','UserController@postManagement')->name('admin.management.user.post');
 				Route::delete('/','UserController@delete')->name('admin.management.user.delete');
 				Route::get('/datatable','UserController@datatable')->name('admin.management.user.datatables');
+				Route::get('/datatable-organization','UserController@datatableOrganization')->name('admin.management.user.datatablesOrganization');
+				Route::get('/datatable-column-organization','UserController@getDatatableColumnOrganization')->name('admin.management.user.datatablesColumnOrganization');
 				Route::get('/datatable-column','UserController@getDatatableColumn')->name('admin.management.user.datatablesColumn');
 			});
 
@@ -63,5 +66,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		});
 
 	});
+});
+Route::group(['prefix'=>'auth','namespace'=>'Auth'],function(){
+	Route::post('/','AuthController@auth')->name('auth');
 });
 

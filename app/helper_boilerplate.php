@@ -3,8 +3,7 @@
 if (!function_exists('translateUrl')) {
     function translateUrl($route = '')
     {
-
-        return trans("route." . ($route ? $route : \Request::route()->getName()));
+        return trans("route." . ($route ? (string)$route : \Request::route()->getName()));
     }
 }
 

@@ -26,7 +26,7 @@
                 <div class="form-group {{$errors->has('role.name') ? 'has-error' : ''}}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.role.name')}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                        <input type="text" value="{{@$role['name']}}" name="role[name]" id="name" class="form-control col-md-7 col-xs-12">
+                        <input type="text" value="{{Request::old('role[name]')?:@$role['name']}}" name="role[name]" id="name" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
                 @if($errors->has('role.name'))
@@ -38,8 +38,8 @@
                 <div class="form-group {{$errors->has('role.permissions') ? 'has-error' : ''}}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.role.permissions')}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                        <select name="role[permissions][]" id="permissions" data-value="{{@$role[permissions]}}" class="form-control col-md-7 col-xs-12" multiple>
-                            @foreach ( $app->routes->getRoutes() as $item)
+                        <select name="role[permissions][]" id="permissions" data-value="{{Request::old('role[permissions]')?:@$role[permission]}}" class="form-control col-md-7 col-xs-12" multiple>
+                            @foreach ($app->routes->getRoutes() as $item)
                             <option value="{{$item->getName()}}">{{translateUrl($item->getName())}}</option>
                             @endforeach
                         </select>

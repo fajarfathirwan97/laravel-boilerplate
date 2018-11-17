@@ -7,6 +7,7 @@ use App\Http\Requests\UserManagementRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserOrganization;
 use App\Traits\ResponseTraits;
 use Illuminate\Http\Request;
 
@@ -95,9 +96,11 @@ class UserController extends Controller
             \DB::beginTransaction();
             try {
                 $role = new Role;
+                $userOrganization = new UserOrganization;
                 $role = $role->whereId($data['role'])->first();
                 $user = \Sentinel::registerAndActivate($data);
                 $role->users()->attach($user->id);
+                $userOrganization = $userOrganization->create(['user_id' => $user->id, 'organization_id' => $data['organization'], 'uuid' => (string) \Uuid::generate(4)]);
                 \DB::commit();
             } catch (\Exception $e) {
                 dd($e->getMessage(), $e->getFile(), $e->getLine());
@@ -105,7 +108,7 @@ class UserController extends Controller
             }
         } else {
             $query = $this->model->where('uuid', $data['uuid']);
-            unset($data['role'],$data['organization']);
+            unset($data['role'], $data['organization']);
             if (@$data['avatar']) {
                 deleteImageFromStorage(storage_path('app/public/' . str_replace(request()->getHttpHost() . '/storage/', '', $query->first()->avatar)));
             }
@@ -145,6 +148,49 @@ class UserController extends Controller
             ['data' => 'action', 'name' => 'href', 'orderable' => 0],
         ];
         return $this->returnResponse(200, $column);
+    }
+
+    /**
+     * Datatable get Column
+     *
+     * @param Request $req
+     * @return JSON Response
+     **/
+    public function getDatatableColumnOrganization(Request $req)
+    {
+        $column = [
+            ['data' => 'full_name', 'name' => 'full_name'],
+            ['data' => 'avatar', 'name' => 'avatar'],
+            ['data' => 'email', 'name' => 'email'],
+            ['data' => 'phone', 'name' => 'phone'],
+            ['data' => 'role_name', 'name' => 'role_name'],
+            ['data' => 'action', 'name' => 'href', 'orderable' => 0],
+        ];
+        return $this->returnResponse(200, $column);
+    }
+
+    /**
+     * Datatable json generator
+     *
+     * @param Request $req
+     * @return Datatables
+     **/
+    public function datatableOrganization(Request $req)
+    {
+        $operator = $req->search['operator'] == 'equal' ? 'like' : 'not like';
+        $data = $this->model->joinOrganization();
+        if (!isNullAndEmpty($req->search['field']) && !isNullAndEmpty($req->search['keyword'])) {
+            if ($req->search['field'] == 'fullname') {
+                $data = $data->where(\DB::RAW("CONCAT(users.first_name,' ',users.last_name)"), $operator, "%{$req->search['keyword']}%");
+            } else {
+                $data = $data->where(\DB::RAW($req->search['field']), $operator, "%{$req->search['keyword']}%");
+            }
+        }
+
+        $dataTable = datatables($data);
+        $dataTable = $this->addActionColumn($dataTable);
+        $dataTable = $this->modifyImageAttribute($dataTable);
+        return $dataTable->rawColumns(['avatar', 'action'])->make(true);
     }
 
     /**
@@ -201,4 +247,19 @@ class UserController extends Controller
             return view('layout.image', ['url' => 'http://' . $data->avatar])->render();
         });
     }
+
+    /**
+     * Delete Record Menu From DB
+     *
+     * @param Request $req
+     * @return JSON Response
+     **/
+    public function delete(UserManagementRequest $req)
+    {
+        $query = $this->model->where(['uuid' => $req->uuid]);
+        deleteImageFromStorage(storage_path('app/public/' . str_replace(request()->getHttpHost() . '/storage/', '', $query->first()->avatar)));
+        $query->delete();
+        return $this->returnResponse(200, ['message' => trans('response.success.default')]);
+    }
+
 }

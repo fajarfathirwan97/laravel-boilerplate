@@ -123,6 +123,9 @@
     @yield('script')
     <script>
       if(target !== undefined){
+        $(target).on('click','#detailButton',function(){
+              window.location.replace($(this).attr('data-url'))
+        })
         $(target).on('click','#deleteModalButton',function(){
               $('#confrimationDeleteYes').attr('data-id',$(this).attr('data-id'));
               $('#deleteModal').modal('show')
