@@ -31,6 +31,14 @@ return [
         'is_parent' => 'Is Parent ?',
         'parent_id' => 'Parent',
     ],
+    'organizations' =>[
+        'name' => 'Organization Name',
+        'phone' => 'Phone',
+        'email' => 'Email',
+        'website' => 'Organization Website',        
+        'logo' => 'Logo',
+        'parent_id' => 'Parent',
+    ],
     'migration' =>[
         'name' => 'Table Name',
         'type' => 'Data Type',

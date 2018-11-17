@@ -21,7 +21,30 @@ class AppServiceProvider extends ServiceProvider
         });
         view()->composer('*', function ($view) {
             $sidebar = collect([
-                (object) ['is_parent' => 1, 'icon' => 'fa-sitemap', 'name' => 'Organization', 'child' => []],
+                (object)
+                [
+                    'is_parent' => 1,
+                    'icon' => 'fa-sitemap',
+                    'name' => 'Organization',
+                    'child' => [
+                        (object) [
+                            'href' => 'admin/management/organization',
+                            'name' => 'List Organization',
+                        ],
+                    ],
+                ],
+                [
+                    'is_parent' => 1,
+                    'icon' => 'fa-group',
+                    'name' => 'Role',
+                    'child' => [
+                        (object) [
+                            'href' => 'admin/management/organization',
+                            'name' => 'List Organization',
+                        ],
+                    ],
+                ],
+
             ]);
             $view->with('sideBar', $sidebar);
         });

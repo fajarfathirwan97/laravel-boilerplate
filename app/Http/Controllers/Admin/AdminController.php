@@ -22,4 +22,10 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    public function logout()
+    {
+        \Sentinel::logout();
+        return view('login.login');
+    }
+
 }

@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         $check = Sentinel::check();
-        if($check)
+        if($check && \Request::route()->getName() != 'admin.logout')
             return response()->redirectToRoute('admin.dashboard');
         
         return $next($request);

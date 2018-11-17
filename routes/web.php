@@ -13,6 +13,7 @@
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::group(['middleware'=>['guest']],function(){
 			Route::get('/','AdminController@index');
+			Route::get('/logout','AdminController@logout')->name('admin.logout');
 	});
 	Route::group(['middleware' => ['sentinel']],function(){
 		Route::get('/redirect','AdminController@redirect')->name('admin.redirect');
@@ -24,7 +25,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 			Route::post('/','UserController@post')->name('admin.user.post');		
 		});
 
-		Route::group(['prefix'=>'management','middleware'=>['access']],function(){
+		Route::group(['prefix'=>'management'],function(){
+
 			Route::group(['prefix'=>'menu'],function(){
 				Route::get('/','MenuController@index')->name('admin.management.menu.index');
 				Route::get('/form/{uuid?}','MenuController@form')->name('admin.management.menu.form');
@@ -33,6 +35,18 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 				Route::get('/datatable','MenuController@datatable')->name('admin.management.menu.datatables');
 				Route::get('/datatable-column','MenuController@getDatatableColumn')->name('admin.management.menu.datatablesColumn');
 			});
+
+			//organizations
+
+			Route::group(['prefix'=>'organization'],function(){
+				Route::get('/','OrganizationController@index')->name('admin.management.organization.index');
+				Route::get('/form/{uuid?}','OrganizationController@form')->name('admin.management.organization.form');
+				Route::post('/','OrganizationController@post')->name('admin.management.organization.post');
+				Route::delete('/','OrganizationController@delete')->name('admin.management.organization.delete');
+				Route::get('/datatable','OrganizationController@datatable')->name('admin.management.organization.datatables');
+				Route::get('/datatable-column','OrganizationController@getDatatableColumn')->name('admin.management.organization.datatablesColumn');
+			});
+
 			Route::group(['prefix'=>'role'],function(){
 				Route::get('/','RoleController@index')->name('admin.management.role.index');
 				Route::get('/form/{uuid?}','RoleController@form')->name('admin.management.role.form');

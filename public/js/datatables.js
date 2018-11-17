@@ -17,6 +17,9 @@ var DatatableCustomClass = function (url,fetchColumnUrl,target,data){
                         data : this.serializeObject(),
                     },
                     "columns" : res.body.content,
+                    "columnDefs": [
+                        {"className": "dt-center", "targets": "_all"}
+                    ],
                 })
             });    
         }else{

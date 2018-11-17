@@ -16,9 +16,11 @@ class Organizations extends Migration
         Schema::create('organizations',function(Blueprint $table){
             $table->string('uuid');
             $table->string('email');
+            $table->string('name');
             $table->string('phone');
             $table->string('website');
-            $table->string('logo');
+            $table->string('logo')->nullable();
+            $table->timestamps();
         });
         Schema::table('organizations',function(Blueprint $table){
             $table->primary('uuid');

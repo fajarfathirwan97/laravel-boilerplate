@@ -128,6 +128,14 @@ return [
             'is_parent' => 'Is Parent ?',
             'id_parent' => 'Parent',
         ],
+        'organizations' =>[
+            'name' => 'Organization Name',
+            'phone' => 'Phone',
+            'email' => 'Email',
+            'website' => 'Organization Website',        
+            'logo' => 'Logo',
+            'parent_id' => 'Parent',
+        ],
     ],
 
 ];
