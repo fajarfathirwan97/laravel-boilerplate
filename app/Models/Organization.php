@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Organization extends Model
 {
     protected $table = 'organizations';
-    protected $casts = ['id'=>'string'];
+    protected $casts = ['id' => 'string'];
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +30,11 @@ class Organization extends Model
      * @var array
      */
     protected $hidden = [
-                
+
     ];
+
+    public function scopeJoinUser($query)
+    {
+        return $query->join('user_organization', 'organizations.id', '=', 'user_organization.organization_id');
+    }
 }

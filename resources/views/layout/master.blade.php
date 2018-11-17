@@ -31,6 +31,9 @@
       @yield('title')
     </title>
   </head>
+  @php
+    $permissions = \Sentinel::check()->roles()->first()->permissions
+  @endphp
   <body class='nav-md'>
   @if(session('message'))
     <div class="col-xs-12 col-md-3 alert alert-{{session('level')}} alert-dismissable fade in" style="position: fixed; right: 0px; z-index: 99;">

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationRequest;
 use App\Models\Organization;
+use App\Models\User;
 use App\Traits\ResponseTraits;
 use Illuminate\Http\Request;
-use App\Models\User;
 
 class OrganizationController extends Controller
 {
@@ -63,6 +63,7 @@ class OrganizationController extends Controller
         $operator = $req->search['operator'] == 'equal' ? 'like' : 'not like';
         $data = $this->model->select(
             'uuid',
+            'id',
             'name',
             'logo',
             'email',
@@ -160,7 +161,7 @@ class OrganizationController extends Controller
     public function addActionColumn($dataTable)
     {
         return $dataTable->addColumn('action', function ($data) {
-            return view('layout.general-button', ['data' => $data, 'url' => route("{$this->viewPath}.detail", $data->uuid)])->render();
+            return view('layout.general-button', ['showOnly' => \Sentinel::check()->userOrganization()->first()->organization_id == $data->id, 'viewPath' => $this->viewPath, 'data' => $data, 'url' => route("{$this->viewPath}.detail", $data->uuid)])->render();
         });
     }
 
@@ -203,6 +204,6 @@ class OrganizationController extends Controller
         $data = $this->model->whereUuid($uuid)->first();
         $user = new User();
         $userController = new UserController($user);
-        return view("$this->viewPath.detail", ['data' => $data,'field'=>$userController->getFieldForSearch()]);
+        return view("$this->viewPath.detail", ['data' => $data, 'field' => $userController->getFieldForSearch()]);
     }
 }

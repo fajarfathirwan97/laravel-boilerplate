@@ -1,4 +1,7 @@
 @extends('layout.master')
+@php
+    $permissions = \Sentinel::check()->roles()->first()->permissions
+@endphp
 
 @section('title')
     {{translateUrl()}}
@@ -93,13 +96,15 @@
                     </div>
                     <table id="dTable" class="col-xs-12 table table-striped table-responsive table-bordered">
                         <div class='row'>
-                            <div class='col-lg-1 col-md-1 col-xs-12 pull-right'>
-                                <a href="{{route('admin.management.organization.form')}}">
-                                    <button id='addModalButton' class="btn btn-primary">
-                                        <span class="fa fa-plus-square" aria-hidden="true"></span>
-                                    </button>
-                                </a>
-                            </div>    
+                            @if(@$viewPath && in_array("$viewPath.form",$permissions) || in_array("*",$permissions))
+                                <div class='col-lg-1 col-md-1 col-xs-12 pull-right'>
+                                    <a href="{{route('admin.management.organization.form')}}">
+                                        <button id='addModalButton' class="btn btn-primary">
+                                            <span class="fa fa-plus-square" aria-hidden="true"></span>
+                                        </button>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                       <thead>
                           <tr>
@@ -132,7 +137,7 @@
 <script>
     $(document).ready(function(){
         var target = '#dTable';
-        dt = new DatatableCustomClass(`{{route('admin.management.user.datatablesOrganization')}}`,`{{route('admin.management.user.datatablesColumnOrganization')}}`,target,$('[name*=search]'));
+        dt = new DatatableCustomClass(`{{route('admin.management.user.datatablesOrganization',$data['uuid'])}}`,`{{route('admin.management.user.datatablesColumnOrganization')}}`,target,$('[name*=search]'));
         dt.renderDatatables()
         $('.searchButton').on('click',function(){
             dt.renderDatatables();

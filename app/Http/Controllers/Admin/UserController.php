@@ -116,7 +116,7 @@ class UserController extends Controller
             $detail->roleUser->save();
             $detail->userOrganization->organization_id = $data['organization'];
             $detail->userOrganization->save();
-            
+
             if ($detail->password == $data['password']) {
                 unset($data['password']);
             } else {
@@ -192,7 +192,7 @@ class UserController extends Controller
     public function datatableOrganization(Request $req)
     {
         $operator = $req->search['operator'] == 'equal' ? 'like' : 'not like';
-        $data = $this->model->joinOrganization();
+        $data = $this->model->joinOrganization()->where('organizations.uuid', $req->uuid);
         if (!isNullAndEmpty($req->search['field']) && !isNullAndEmpty($req->search['keyword'])) {
             if ($req->search['field'] == 'fullname') {
                 $data = $data->where(\DB::RAW("CONCAT(users.first_name,' ',users.last_name)"), $operator, "%{$req->search['keyword']}%");
@@ -245,7 +245,7 @@ class UserController extends Controller
     public function addActionColumn($dataTable)
     {
         return $dataTable->addColumn('action', function ($data) {
-            return view('layout.general-button', ['data' => $data])->render();
+            return view('layout.general-button', ['showOnly' => @\Sentinel::check()->userOrganization()->first()->organization_id == @$data->organization_id, 'viewPath' => $this->viewPath, 'data' => $data])->render();
         });
     }
 

@@ -1,4 +1,7 @@
 @extends('layout.master')
+@php
+    $permissions = \Sentinel::check()->roles()->first()->permissions
+@endphp
 @section('title')
     {{translateUrl()}}
 @endsection
@@ -30,13 +33,15 @@
 </div>
 <table id="dTable" class="table table-striped table-responsive table-bordered">
 <div class='row'>
-    <div class='col-lg-1 col-md-1 col-xs-12 pull-right'>
-        <a href="{{route('admin.management.role.form')}}">
-            <button id='addModalButton' class="btn btn-primary">
-                <span class="fa fa-plus-square" aria-hidden="true"></span>
-            </button>
-        </a>
-    </div>    
+    @if(@$viewPath && in_array("$viewPath.form",$permissions) || in_array("*",$permissions))
+        <div class='col-lg-1 col-md-1 col-xs-12 pull-right'>
+            <a href="{{route('admin.management.role.form')}}">
+                <button id='addModalButton' class="btn btn-primary">
+                    <span class="fa fa-plus-square" aria-hidden="true"></span>
+                </button>
+            </a>
+        </div>  
+    @endif  
 </div>
     <thead>
         <tr>
