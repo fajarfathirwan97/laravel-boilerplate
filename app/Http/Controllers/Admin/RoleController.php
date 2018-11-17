@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MenuRequest;
+use App\Http\Requests\RoleRequest;
 use App\Models\Menu;
 use App\Models\Role;
 use App\Traits\ResponseTraits;
@@ -95,7 +95,7 @@ class RoleController extends Controller
      * @param Request $req
      * @return JSON Response
      **/
-    public function post(Request $req)
+    public function post(RoleRequest $req)
     {
         $data = $req->role;
         if (!$data['uuid']) {
@@ -145,5 +145,21 @@ class RoleController extends Controller
             return view('layout.general-button', ['data' => $data])->render();
         });
     }
+
+     /**
+     * Select2 Dropdown
+     *
+     * @param Request $req
+     * @return json
+     **/
+    public function select2(Request $req)
+    {
+        $data = $this->role->select(
+                                \DB::RAW('id'),
+                                \DB::RAW('(SELECT name) as text')
+                                )->where('name','like',"%{$req->search}%")
+                                ->where('slug','!=','admin')->take(50)->get();
+        return $this->returnResponseSelect2(200,$data);
+    }    
 
 }

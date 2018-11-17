@@ -38,6 +38,15 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 				Route::get('/datatable-column','OrganizationController@getDatatableColumn')->name('admin.management.organization.datatablesColumn');
 			});
 
+			Route::group(['prefix'=>'user'],function(){
+				Route::get('/','UserController@index')->name('admin.management.user.index');
+				Route::get('/form/{uuid?}','UserController@formManagement')->name('admin.management.user.form');
+				Route::post('/','UserController@postManagement')->name('admin.management.user.post');
+				Route::delete('/','UserController@delete')->name('admin.management.user.delete');
+				Route::get('/datatable','UserController@datatable')->name('admin.management.user.datatables');
+				Route::get('/datatable-column','UserController@getDatatableColumn')->name('admin.management.user.datatablesColumn');
+			});
+
 			Route::group(['prefix'=>'role'],function(){
 				Route::get('/','RoleController@index')->name('admin.management.role.index');
 				Route::get('/form/{uuid?}','RoleController@form')->name('admin.management.role.form');
@@ -48,7 +57,9 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 			});
 		});
 		Route::group(['prefix'=>'select2'],function(){
-			Route::post('/','MenuController@select2')->name('admin.management.menu.select2');			
+			Route::post('/menu','MenuController@select2')->name('admin.management.menu.select2');
+			Route::post('/role','RoleController@select2')->name('role.select2');
+			Route::post('/organization','OrganizationController@select2')->name('organization.select2');
 		});
 
 	});

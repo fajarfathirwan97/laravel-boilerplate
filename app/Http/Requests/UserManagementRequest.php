@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrganizationRequest extends FormRequest
+class UserManagementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +25,17 @@ class OrganizationRequest extends FormRequest
     {
         if($this->isMethod('delete')){
             $rule =  [ 
-                'uuid' => 'required|exists:organizations,uuid'
+                'uuid' => 'required|exists:users,uuid'
             ];
         }elseif($this->isMethod('post')){
             $rule =  [
-                'organizations.name' => 'required',
-                'organizations.phone' => 'required|numeric|digits_between:9,13',
-                'organizations.email' => 'required|email',
-                'organizations.website' => 'required|regex:/^(http(s?):\/\/)?(www\.)+[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/'
+                'users.first_name' => 'required',
+                'users.last_name' => 'required',
+                'users.password' => 'required',
+                'users.phone' => 'required|numeric|digits_between:9,13',
+                'users.email' => 'required|email',
+                'users.role' => 'required|exists:roles,id',
+                'users.organization' => 'required|exists:organizations,id'
             ];    
         }
         return $rule;

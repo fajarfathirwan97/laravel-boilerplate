@@ -21,8 +21,8 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Index Menu Management
-     *     *
+     * Index Organization Management
+     *
      * @return view
      **/
     public function index()
@@ -175,4 +175,18 @@ class OrganizationController extends Controller
         });
     }
 
+    /**
+     * Select2 Dropdown
+     *
+     * @param Request $req
+     * @return json
+     **/
+    public function select2(Request $req)
+    {
+        $data = $this->model->select(
+                                \DB::RAW('id'),
+                                \DB::RAW('(SELECT name) as text')
+                                )->where('name','like',"%{$req->search}%")->take(50)->get();
+        return $this->returnResponseSelect2(200,$data);
+    }
 }

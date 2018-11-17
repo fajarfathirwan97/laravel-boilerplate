@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Cartalyst\Sentinel\Users\EloquentUser;
+use Illuminate\Notifications\Notifiable;
 
 class User extends EloquentUser
 {
@@ -15,7 +15,7 @@ class User extends EloquentUser
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name' , 'email', 'password','uuid'
+        'first_name', 'last_name', 'email', 'password', 'uuid', 'username', 'phone', 'avatar',
     ];
 
     /**

@@ -37,12 +37,17 @@ class AppServiceProvider extends ServiceProvider
                 [
                     'is_parent' => 1,
                     'icon' => 'fa-group',
-                    'name' => 'Role',
+                    'name' => 'User Management',
                     'child' => [
                         (object)
                         [
                             'href' => 'admin/management/role',
                             'name' => 'List Role',
+                        ],
+                        (object)
+                        [
+                            'href' => 'admin/management/user',
+                            'name' => 'List User',
                         ],
                     ],
                 ],

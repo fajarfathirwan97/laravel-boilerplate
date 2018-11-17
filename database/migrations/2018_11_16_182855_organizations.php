@@ -14,16 +14,14 @@ class Organizations extends Migration
     public function up()
     {
         Schema::create('organizations',function(Blueprint $table){
-            $table->string('uuid');
+            $table->increments('id');
+            $table->string('uuid')->unique();
             $table->string('email');
             $table->string('name');
             $table->string('phone');
             $table->string('website');
             $table->string('logo')->nullable();
             $table->timestamps();
-        });
-        Schema::table('organizations',function(Blueprint $table){
-            $table->primary('uuid');
         });
     }
 

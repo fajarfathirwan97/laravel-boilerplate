@@ -35,18 +35,18 @@
                 <!-- /block 1 form -->
 
                 <!-- block 1 form -->
-                <div class="form-group {{$errors->has('role.permission') ? 'has-error' : ''}}">
+                <div class="form-group {{$errors->has('role.permissions') ? 'has-error' : ''}}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.role.permissions')}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                        <select name="role[permissions][]" id="permission" data-value="{{@$role[permission]}}" class="form-control col-md-7 col-xs-12" multiple>
+                        <select name="role[permissions][]" id="permissions" data-value="{{@$role[permissions]}}" class="form-control col-md-7 col-xs-12" multiple>
                             @foreach ( $app->routes->getRoutes() as $item)
                             <option value="{{$item->getName()}}">{{translateUrl($item->getName())}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                @if($errors->has('role.name'))
-                        <span class="help-block">{{$errors->first('role.name')}}</span>
+                @if($errors->has('role.permissions'))
+                        <span class="help-block">{{$errors->first('role.permissions')}}</span>
                 @endif
                 <!-- /block 1 form -->
 
@@ -68,10 +68,10 @@
 @section('script')
 <script>
     $(document).ready(function(){
-        $('#permission').select2()
-        var permission = $('#permission').data('value'); 
+        $('#permissions').select2()
+        var permission = $('#permissions').data('value'); 
         $(permission).each(function(key,item){
-            $('#permission').append($('<option>', {value: item.value, text: item.text,selected: true}))
+            $('#permissions').append($('<option>', {value: item.value, text: item.text,selected: true}))
         })
     })
 </script>
