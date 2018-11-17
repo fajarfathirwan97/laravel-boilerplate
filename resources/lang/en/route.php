@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
      */
-
+    '*' => 'All Route',
     'admin' => [
         'dashboard' => 'Dashboard',
         'index' => 'Index',
