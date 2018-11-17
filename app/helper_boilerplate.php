@@ -1,9 +1,10 @@
 <?php
 
 if (!function_exists('translateUrl')) {
-    function translateUrl()
+    function translateUrl($route = '')
     {
-        return trans("route." . \Request::route()->getName());
+
+        return trans("route." . ($route ? $route : \Request::route()->getName()));
     }
 }
 
@@ -79,11 +80,10 @@ if (!function_exists('saveImageFromBase64')) {
     }
 }
 
-
 if (!function_exists('deleteImageFromStorage')) {
     function deleteImageFromStorage($path)
     {
-        if(file_exists($path)){
+        if (file_exists($path)) {
             unlink($path);
             return true;
         }

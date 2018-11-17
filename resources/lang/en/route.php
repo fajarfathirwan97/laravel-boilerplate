@@ -11,26 +11,39 @@ return [
     | messages that we need to display to the user. You are free to modify
     | these language lines according to your application's requirements.
     |
-    */
+     */
 
     'admin' => [
         'dashboard' => 'Dashboard',
+        'index' => 'Index',
         'user' => [
-            'form' => 'Form User'
+            'form' => 'Form User',
         ],
         'management' => [
+            'organization' => [
+                'index' => 'List Organization',
+                'form' => 'Form Organization',
+                'post' => 'Post Organization',
+                'delete' => 'Delete Organization',
+                'datatables' => 'Datatable Organization',
+                'datatablesColumn' => 'DatatableColumn Organization',
+            ],
             'menu' => [
                 'index' => 'Datatable Menu',
-                'form' => 'Form Management Menu'            
+                'form' => 'Form Management Menu',
             ],
             'role' => [
                 'index' => 'Datatable Roles',
-                'form' => 'Form Management Role'            
+                'form' => 'Form Management Role',
+                'post' => 'Post Role',
+                'delete' => 'Delete Role',
+                'datatables' => 'Datatable Role',
+                'datatablesColumn' => 'DatatableColumn Role',
             ],
             'json' => [
                 'index' => 'Json Add',
-            ]
+            ],
 
-        ]
-    ]
+        ],
+    ],
 ];

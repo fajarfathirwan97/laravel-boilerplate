@@ -39,6 +39,9 @@
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans('form.role.permissions')}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
                         <select name="role[permissions][]" id="permission" data-value="{{@$role[permission]}}" class="form-control col-md-7 col-xs-12" multiple>
+                            @foreach ( $app->routes->getRoutes() as $item)
+                            <option value="{{$item->getName()}}">{{translateUrl($item->getName())}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -65,25 +68,7 @@
 @section('script')
 <script>
     $(document).ready(function(){
-        $('#permission').select2({
-            ajax: {
-                type:"POST",
-                delay : 1000,
-                data: function (params) {
-                    var query = {
-                    search: params.term,
-                    isParent : '*'
-                    }
-                    return query;
-                },
-                url: '{{route("admin.management.menu.select2")}}',
-                processResults: function (data) {
-                    return {
-                        results: data.results
-                    };
-                }
-            }
-        })
+        $('#permission').select2()
         var permission = $('#permission').data('value'); 
         $(permission).each(function(key,item){
             $('#permission').append($('<option>', {value: item.value, text: item.text,selected: true}))
