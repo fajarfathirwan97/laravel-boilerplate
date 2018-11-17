@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagementRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Role;
+use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\UserOrganization;
 use App\Traits\ResponseTraits;
+use function GuzzleHttp\json_encode;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -43,11 +45,12 @@ class UserController extends Controller
     public function formManagement($uuid = null)
     {
         if ($uuid) {
-            $data = $this->model->where('uuid', $uuid)->first();
+            $data = $this->model->JoinOrganization()->where('users.uuid', $uuid)->first();
+            $data->organization = json_encode(['value' => $data->organization_id, 'text' => $data->organization_name]);
+            $data->role = json_encode(['value' => $data->role_id, 'text' => $data->role_name]);
             if (!$data) {
                 return $this->routeIndex->with(['message' => trans('response.error.internal'), 'level' => 'error']);
             }
-
         } else {
             $data = array_fill_keys(($this->model->getFillable()), '');
         }
@@ -86,7 +89,7 @@ class UserController extends Controller
     public function postManagement(UserManagementRequest $req, User $user)
     {
         $data = $req->{$this->model->getTable()};
-        if ($data['avatar']) {
+        if (@$data['avatar']) {
             $data['avatar'] = saveImageFromBase64($data['avatar']);
         } else {
             unset($data['avatar']);
@@ -107,7 +110,18 @@ class UserController extends Controller
                 \DB::rollback();
             }
         } else {
-            $query = $this->model->where('uuid', $data['uuid']);
+            $query = $this->model->with('roleUser', 'userOrganization')->where('uuid', $data['uuid']);
+            $detail = $query->first();
+            $detail->roleUser->role_id = $data['role'];
+            $detail->roleUser->save();
+            $detail->userOrganization->organization_id = $data['organization'];
+            $detail->userOrganization->save();
+            
+            if ($detail->password == $data['password']) {
+                unset($data['password']);
+            } else {
+                $data['password'] = \Hash::make($data['password']);
+            }
             unset($data['role'], $data['organization']);
             if (@$data['avatar']) {
                 deleteImageFromStorage(storage_path('app/public/' . str_replace(request()->getHttpHost() . '/storage/', '', $query->first()->avatar)));

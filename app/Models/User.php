@@ -27,23 +27,34 @@ class User extends EloquentUser
         'password', 'remember_token',
     ];
 
-    public function organization()
+    public function roleUser()
     {
-        return $this->hasManyThrough(UserOrganization::class, Organization::class);
+        return $this->belongsTo(RoleUser::class, 'id', 'user_id');
     }
 
+    public function userOrganization()
+    {
+        return $this->belongsTo(UserOrganization::class, 'id', 'user_id');
+    }
     public function scopeJoinOrganization($query)
     {
         return $query
             ->select([
                 'roles.name as role_name',
                 'roles.id as role_id',
+                'organizations.name as organization_name',
+                'organizations.id as organization_id',
                 \DB::RAW("CONCAT(users.first_name,' ',users.last_name) as full_name"),
                 'users.email',
+                'users.uuid',
+                'users.first_name',
+                'users.last_name',
+                'users.password',
                 'users.phone',
-                'users.avatar'
+                'users.avatar',
             ])
             ->join('user_organization', 'users.id', '=', 'user_organization.user_id')
+            ->join('organizations', 'user_organization.organization_id', '=', 'organizations.id')
             ->join('role_users', 'users.id', '=', 'role_users.user_id')
             ->join('roles', 'role_users.role_id', '=', 'roles.id');
     }

@@ -87,7 +87,7 @@
                  <div class="form-group {{$errors->has("{$tableName}.role") ? 'has-error' : ''}}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans("form.{$tableName}.role")}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                        <select value="{{Request::old("{$tableName}.role") ?: @$data['role']}}" name="{{"{$tableName}[role]"}}" id="role" class="form-control col-md-7 col-xs-12">
+                        <select data-value="{{Request::old("{$tableName}.role") ?: @$data['role']}}" name="{{"{$tableName}[role]"}}" id="role" class="form-control col-md-7 col-xs-12">
                         </select>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                   <div class="form-group {{$errors->has("{$tableName}.organization") ? 'has-error' : ''}}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">{{trans("form.{$tableName}.organization")}}</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                        <select value="{{Request::old("{$tableName}.organization") ?: @$data['organization']}}" name="{{"{$tableName}[organization]"}}" id="organization" class="form-control col-md-7 col-xs-12">
+                        <select data-value="{{Request::old("{$tableName}.organization") ?: @$data['organization']}}" name="{{"{$tableName}[organization]"}}" id="organization" class="form-control col-md-7 col-xs-12">
                         </select>
                     </div>
                 </div>
@@ -144,6 +144,10 @@
                 }
             }
         })
+        var organization = $('#organization').data('value'); 
+        $(organization).each(function(key,item){
+            $('#organization').append($('<option>', {value: item.value, text: item.text,selected: true}))
+        })
         $('#role').select2({
             ajax: {
                 type:"POST",
@@ -163,6 +167,10 @@
                     };
                 }
             }
+        })
+        var role = $('#role').data('value'); 
+        $(role).each(function(key,item){
+            $('#role').append($('<option>', {value: item.value, text: item.text,selected: true}))
         })
         $('#logoView').on('change',function(){
             var reader = new FileReader();
