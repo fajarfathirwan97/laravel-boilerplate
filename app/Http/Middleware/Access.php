@@ -2,10 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-use Illuminate\Support\Facades\Auth;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use App\Models\Menu;
+use Closure;
+
 class Access
 {
     /**
@@ -18,11 +17,11 @@ class Access
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $menu = new Menu;
-        $permission = @\Sentinel::check()->roles()->first()->getAttributes()['permissions'];
-        $menuPermission = $menu->where('href','like','%'.$request->segment(3).'%')->first();
-        if($permission == '*' || in_array(@$menuPermission->id,$permission ? json_decode($permission): ''))
+        $permissions = \Sentinel::check()->roles()->first()->permissions;
+        if (in_array(\Request::route()->getName(), $permissions) || in_array("*", $permissions)) {
             return $next($request);
-        abort(404);
+        }
+
+        abort(403);
     }
 }

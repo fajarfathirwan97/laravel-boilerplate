@@ -161,7 +161,7 @@ class OrganizationController extends Controller
     public function addActionColumn($dataTable)
     {
         return $dataTable->addColumn('action', function ($data) {
-            return view('layout.general-button', ['showOnly' => \Sentinel::check()->userOrganization()->first()->organization_id == $data->id, 'viewPath' => $this->viewPath, 'data' => $data, 'url' => route("{$this->viewPath}.detail", $data->uuid)])->render();
+            return view('layout.general-button', ['showOnly' => @\Sentinel::check()->userOrganization()->first()->organization_id == @$data->id, 'viewPath' => $this->viewPath, 'data' => $data, 'url' => route("{$this->viewPath}.detail", $data->uuid)])->render();
         });
     }
 
